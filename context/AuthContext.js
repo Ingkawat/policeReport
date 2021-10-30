@@ -69,7 +69,7 @@ const login = (dispatch) => {
       
         })
         .catch((err) => {
-          dispatch({ type: 'add_error', payload: 'Login Error' })
+          dispatch({ type: 'add_error', payload: 'IdCrad or Password invalid' })
         });
 
     }
