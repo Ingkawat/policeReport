@@ -54,14 +54,13 @@ router.post("/register", async function (req, res, next) {
   const l_name = req.body.l_name;
   const id_Card = req.body.id_Card;
   const password = req.body.password;
-  const confirmpassword = req.body.confirmpassword;
   const phoneNumber = req.body.phoneNumber;
   const email = req.body.email;
 
   try {
     await conn.query(
-      "INSERT INTO user(id_card, f_name, l_name, password,confirmpassword,phoneNumber,email) VALUES(?, ?, ?, ?, ?, ?, ?);",
-      [id_Card, f_name, l_name, password,confirmpassword ,phoneNumber ,email]
+      "INSERT INTO user(id_card, f_name, l_name, password,phoneNumber,email) VALUES(?, ?, ?, ?, ?, ?);",
+      [id_Card, f_name, l_name, password ,phoneNumber ,email]
     );
     await conn.commit();
     res.status(201).send();
