@@ -91,7 +91,7 @@ const Register = ({navigation,props}) => {
         ></TextInput>
       </View>
 
-      <TouchableOpacity style={[styles.button, {backgroundColor: '#60b45c', marginTop: 35}]}  onPress={console.log("test"),()=> register({id_Card, fname, lname, password,confirmpassword,phoneNumber,email})}>
+      <TouchableOpacity style={[styles.button, {backgroundColor: '#60b45c', marginTop: 35}]}  onPress={()=> register({id_Card, fname, lname, password,phoneNumber,email})}>
         <Text style={styles.fontButton}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{marginTop: 10}} onPress={()=> navigation.navigate("LoginScreen")}>
