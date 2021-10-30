@@ -31,7 +31,7 @@ const tryLocalSignin = dispatch => async () => {
 }
 
 const register = (dispatch) => {
-    return({id_Card, fname, lname, password,confirmpassword,phoneNumber,email}) => {
+    return({id_Card, fname, lname, password,phoneNumber,email}) => {
         axios
         //use your ip address type in cmd ipconfig***
         .post("http://192.168.1.36:3000/register", {
@@ -39,7 +39,6 @@ const register = (dispatch) => {
           f_name: fname,
           l_name: lname,
           password: password,
-          confirmpassword: confirmpassword,
           phoneNumber: phoneNumber,
           email: email
         })
