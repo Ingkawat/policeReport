@@ -58,7 +58,7 @@ const Check_onsubmit = () =>{
     Alert.alert("Password and IdCrad requirement is invalid.")
   }
   else{
-    login({id_card, password})
+    login({id_card, password,checkValidId_card,checkValidPassword})
 
   } 
 
@@ -109,6 +109,7 @@ const Check_onsubmit = () =>{
       <TouchableOpacity style={[styles.button, {backgroundColor: '#2596be', marginTop: 15}]}  onPress={() => navigation.navigate("RegisterScreen")}>
         <Text style={styles.fontButton}>Sign Up</Text>
       </TouchableOpacity>
+
       {state.errorMessage ? 
       <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
            <Text style={{color:"red"}}>{state.errorMessage}</Text>
