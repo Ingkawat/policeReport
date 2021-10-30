@@ -4,13 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Context as AuthContext } from '../context/AuthContext';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 
 import Login from "../screen/Login";
 import Register from "../screen/Register";
 import Home from "../screen/Home";
 import Notifications from "../screen/Notifications";
-import Profile from "../screen/Profile";
+import Account from "../screen/Account";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -39,23 +39,23 @@ export default function Mynavigator() {
             
         ):(
           <Tab.Navigator>
-            <Tab.Screen name = "Home" component={Home}
+            <Tab.Screen name = "Report" component={Home}
                     options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Report',
                     tabBarIcon: ({ color, size }) => (
-                      <MaterialCommunityIcons name="home" color={color} size={size} />
+                      <Octicons name="report" color={color} size={size} />
                     ),
                   }}/>
             <Tab.Screen name = "Notifications" component={Notifications}
                     options={{
-                    tabBarLabel: 'Updates',
+                    tabBarLabel: 'Notifications',
                     tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="bell" color={color} size={size} />
                     ),
                   }}/>
-            <Tab.Screen name = "Profile" component={Profile}
+            <Tab.Screen name = "Account" component={Account}
                     options={{
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: 'Account',
                     tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="account" color={color} size={size} />
                     ),
