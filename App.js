@@ -1,23 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './screen/Login';
+import { StyleSheet, Text, View,ImageBackground } from 'react-native';
 import { Provider as AuthProvider } from './context/AuthContext';
+import { Provider as ValidationContext } from './context/ValidationContext';
 import Mynavigator from './navigation/Mynavigator';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Mynavigator/>
+   
+    
+    <AuthProvider >   
+       <ValidationContext>
+      <Mynavigator/> 
+      </ValidationContext>
     </AuthProvider>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
