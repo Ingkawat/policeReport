@@ -8,7 +8,7 @@ import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 
 import Login from "../screen/Login";
 import Register from "../screen/Register";
-import Home from "../screen/Home";
+import Report from "../screen/Report";
 import Notifications from "../screen/Notifications";
 import Account from "../screen/Account";
 
@@ -39,7 +39,7 @@ export default function Mynavigator() {
             
         ):(
           <Tab.Navigator>
-            <Tab.Screen name = "Report" component={Home}
+            <Tab.Screen name = "Report" component={Report}
                     options={{
                     tabBarLabel: 'Report',
                     tabBarIcon: ({ color, size }) => (
