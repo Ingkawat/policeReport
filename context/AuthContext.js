@@ -10,6 +10,7 @@ const authReducer = (state, action) => {
         case 'register':
             return {...state, isSignin: true}
         case 'add_error':
+
             return {...state, errorMessage: action.payload};
         case 'signin':
             return {errorMessage: '' , username: action.payload};
@@ -29,6 +30,8 @@ const tryLocalSignin = dispatch => async () => {
         dispatch({type: 'signin', payload: token});   
     }
 }
+
+
 
 const register = (dispatch) => {
     return({id_Card, fname, lname, password,phoneNumber,email}) => {
@@ -55,7 +58,7 @@ const register = (dispatch) => {
 }
 
 const login = (dispatch) => {
-    return ({id_card, password,checkValidId_card,checkValidPassword}) => {
+    return ({id_card, password}) => {
         axios
         //use your ip address type in cmd ipconfig***
         .post("http://192.168.1.36:3000/login", {
@@ -68,14 +71,9 @@ const login = (dispatch) => {
       
         })
         .catch((err) => {
-            if(checkValidId_card === false){
-          dispatch({ type: 'add_error', payload: 'IdCrad invalid' })}
-          else if(checkValidPassword === false){
-            dispatch({ type: 'add_error', payload: 'Password invalid' })
-          }
-          else {
-            dispatch({ type: 'add_error', payload: 'Incorrect Username and/or Password!' })
-          }
+
+            dispatch({ type: 'add_error', payload: 'Incorrect Username and/or Password!'})
+        
         });
 
     }
