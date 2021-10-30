@@ -2,7 +2,9 @@ import React, {useState, useContext, useEffect} from 'react';
 import { Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View,ImageBackground, Alert } from 'react-native';
 import * as Animatable from 'react-native-animatable'
 
-import { Context as AuthContext } from '../context/AuthContext';
+import { Context as AuthContext  } from '../context/AuthContext';
+import { Context  as ValidationContext} from '../context/ValidationContext';
+
 import Header from "../components/Hearders";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -11,59 +13,30 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Login = ({navigation}) => {
 
     const {state, login, tryLocalSignin} = useContext(AuthContext);
+
+    const {validate_Idcard, validate_Password} = useContext(ValidationContext);
+    let state1 = useContext(ValidationContext).state;
+
     const [id_card, setId_Card] = useState("");
     const [password, setPassword] = useState("");
+    
     useEffect(() => {tryLocalSignin();}, []);
    
 
-
-const [checkValidId_card , setCheckValidId_card ] = useState(true)
-const [error, setError] = useState("");
-const valid_idCard = (value) => {
-  if(value.length > 12 && value.length < 14){
-    setError(" ")
-    setCheckValidId_card(true)
-  }
-  else{
-    setError("IdCrad must be a number and have 13 characters.")
-    setCheckValidId_card(false)
-  }
-  setId_Card(value)
-}
-
-
-const [checkValidPassword , setCheckValidPassword ] = useState(true)
-const [error2, setError2] = useState("");
-const valid_password = (value) => {
-  let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#@_=;:()*"':{}[%\$%\^&\*])(?=.{8,})/;
-  if(reg.test(value) === true){
-    setError2(" ")
-    setCheckValidPassword(true)
-  }
-  else{
-    setError2("Password must have a large, small, special, and must have 8 characters.")
-    setCheckValidPassword(false)
-  }
-  setPassword(value)
-}
-
 const Check_onsubmit = () =>{
-  if(checkValidId_card == false && checkValidPassword == true){
+  if(state1.checkIdcard == false && state1.checkPassword == true){
     Alert.alert("IdCrad requirement is invalid.")
 
-  }else if(checkValidPassword == false && checkValidId_card == true){
+  }else if(state1.checkPassword == false && state1.checkIdcard == true){
     Alert.alert("Password requirement is invalid.")
   }
-  else if(checkValidId_card == false && checkValidPassword == false){
+  else if(state1.checkIdcard == false && state1.checkPassword == false){
     Alert.alert("Password and IdCrad requirement is invalid.")
   }
   else{
-    login({id_card, password,checkValidId_card,checkValidPassword})
-
-  } 
+    login({id_card, password})}
 
 }
-
 
 
   return (
@@ -75,31 +48,31 @@ const Check_onsubmit = () =>{
         <Icon name='user-o' size={20} />
         <TextInput style={styles.textInput} placeholder="ID CARD" keyboardType="default" placeholderTextColor="white"
           value={id_card}
-          onChangeText={(value)=>{valid_idCard(value)
+          onChangeText={(value)=>{setId_Card(value),validate_Idcard(value)
           }}
           
         ></TextInput>
         
       </View>
-      {checkValidId_card ? null :
+      {state1.errorIdcard ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{error}</Text>
-          </Animatable.View>} 
+           <Text style={{color:"red",left:-36}}>{state1.errorIdcard}</Text>
+          </Animatable.View> :null }
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
         <Icon name='lock' size={30} />
         <TextInput style={styles.textInput} placeholder="Password" keyboardType="default" secureTextEntry={true} placeholderTextColor="white"
           value={password}
-          onChangeText={(value)=>{valid_password(value)
+          onChangeText={(value)=>{setPassword(value),validate_Password(value)
           }}
          
           ></TextInput>
 
       </View>
-      {checkValidPassword ? null :
+      {state1.errorPassword ? 
           <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
-           <Text style={{color:"red",left:25, }}>{error2}</Text>
-          </Animatable.View>} 
+           <Text style={{color:"red",left:25, }}>{state1.errorPassword}</Text>
+          </Animatable.View>: null} 
 
      
 
@@ -113,7 +86,7 @@ const Check_onsubmit = () =>{
       {state.errorMessage ? 
       <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
            <Text style={{color:"red"}}>{state.errorMessage}</Text>
-          </Animatable.View>:null} 
+          </Animatable.View>: null} 
    
     </SafeAreaView>
     </ImageBackground>
