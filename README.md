@@ -1,5 +1,5 @@
 # policeReport
-# yarn react-native-animatable --save
+# yarn add react-native-animatable --save
 # yarn
 
 # yarn add react-native-vector-icons
