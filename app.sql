@@ -4,7 +4,6 @@ CREATE TABLE `user` (
   `f_name` varchar(250),
   `l_name` varchar(250),
   `password` varchar(250),
-  `confirmpassword` varchar(250),
   `phonenumber` varchar(250),
   `email` varchar(250),
   PRIMARY KEY (`id_card`)
