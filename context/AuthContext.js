@@ -55,7 +55,7 @@ const register = (dispatch) => {
 }
 
 const login = (dispatch) => {
-    return ({id_card, password}) => {
+    return ({id_card, password,checkValidId_card,checkValidPassword}) => {
         axios
         //use your ip address type in cmd ipconfig***
         .post("http://192.168.1.36:3000/login", {
@@ -68,7 +68,14 @@ const login = (dispatch) => {
       
         })
         .catch((err) => {
-          dispatch({ type: 'add_error', payload: 'IdCrad or Password invalid' })
+            if(checkValidId_card === false){
+          dispatch({ type: 'add_error', payload: 'IdCrad invalid' })}
+          else if(checkValidPassword === false){
+            dispatch({ type: 'add_error', payload: 'Password invalid' })
+          }
+          else {
+            dispatch({ type: 'add_error', payload: 'Incorrect Username and/or Password!' })
+          }
         });
 
     }
