@@ -11,6 +11,8 @@ import Register from "../screen/Register";
 import Report from "../screen/Report";
 import Notifications from "../screen/Notifications";
 import Account from "../screen/Account";
+import Location from "../screen/Location"
+import EditProfile  from "../screen/EditProfile";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -25,6 +27,20 @@ const LoginNavigator = createNativeStackNavigator();
 
 export default function Mynavigator() {
   const {state, tryLocalSingin} = useContext(AuthContext);  
+  
+const stack = createNativeStackNavigator();
+
+  function AccountStack(){
+    return (
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+        <stack.Screen name="Account" component={Account}/>
+        <stack.Screen name="Location" component={Location} />
+        <stack.Screen name="EditProfile" component={EditProfile} />
+      </stack.Navigator>
+    )
+  
+  }
+  
   return (
 
     
@@ -38,7 +54,7 @@ export default function Mynavigator() {
             </LoginNavigator.Navigator>
             
         ):(
-          <Tab.Navigator>
+          <Tab.Navigator screenOptions={{headerShown:false}}>
             <Tab.Screen name = "Report" component={Report}
                     options={{
                     tabBarLabel: 'Report',
@@ -53,7 +69,7 @@ export default function Mynavigator() {
                       <MaterialCommunityIcons name="bell" color={color} size={size} />
                     ),
                   }}/>
-            <Tab.Screen name = "Account" component={Account}
+            <Tab.Screen name = "AccountStack" component={AccountStack}
                     options={{
                     tabBarLabel: 'Account',
                     tabBarIcon: ({ color, size }) => (
