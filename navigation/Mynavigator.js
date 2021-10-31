@@ -54,7 +54,7 @@ const stack = createNativeStackNavigator();
             </LoginNavigator.Navigator>
             
         ):(
-          <Tab.Navigator screenOptions={{headerShown:false}}>
+          <Tab.Navigator >
             <Tab.Screen name = "Report" component={Report}
                     options={{
                     tabBarLabel: 'Report',
@@ -71,6 +71,7 @@ const stack = createNativeStackNavigator();
                   }}/>
             <Tab.Screen name = "AccountStack" component={AccountStack}
                     options={{
+                      headerShown: false,
                     tabBarLabel: 'Account',
                     tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="account" color={color} size={size} />
