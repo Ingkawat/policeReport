@@ -42,7 +42,7 @@ const Report = () => {
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.buttonReport}>
+        <TouchableOpacity style={styles.buttonReport} onPress={() => setModalVisible(true)}>
           <Text>เอกสารหาย</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonReport}>
@@ -87,12 +87,6 @@ const Report = () => {
             </View>
           </View>
         </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </Pressable>
       </View>
     </View>
   );
