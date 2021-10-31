@@ -69,6 +69,28 @@ const Account = ({navigation}) => {
                 height: 35,
                 width: "100%",
               }}
+              onPress={() => navigation.navigate("Status")}
+            >
+              <Text style={{ fontSize: 15, color: "grey" }}>
+                <Entypo name="location" size={15} color="black" /> Status
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              borderColor: "white",
+              borderBottomWidth: 1,
+              height: 35,
+              width: "80%",
+              alignItems: "flex-start",
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 35,
+                width: "100%",
+              }}
               onPress={() => navigation.navigate("Location")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
@@ -91,6 +113,7 @@ const Account = ({navigation}) => {
                 height: 35,
                 width: "100%",
               }}
+              onPress={() => navigation.navigate("ChangePass")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
                 <MaterialCommunityIcons
@@ -117,9 +140,32 @@ const Account = ({navigation}) => {
                 height: 35,
                 width: "100%",
               }}
+              onPress={() => navigation.navigate("Help")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
                 <Entypo name="help" size={15} color="black" /> Help
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              borderColor: "white",
+              borderBottomWidth: 1,
+              height: 35,
+              width: "80%",
+              alignItems: "flex-start",
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 35,
+                width: "100%",
+              }}
+              onPress={() => navigation.navigate("Admin")}
+            >
+              <Text style={{ fontSize: 15, color: "grey" }}>
+                <Entypo name="help" size={15} color="black" /> Admin
               </Text>
             </TouchableOpacity>
           </View>
