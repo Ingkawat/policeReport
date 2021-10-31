@@ -12,6 +12,7 @@ import {
   Image,
   ScrollView,
   Modal,
+  ImageBackground,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 
@@ -42,7 +43,10 @@ const Report = () => {
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.buttonReport} onPress={() => setModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.buttonReport}
+          onPress={() => setModalVisible(true)}
+        >
           <Text>เอกสารหาย</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonReport}>
@@ -52,6 +56,12 @@ const Report = () => {
           <Text>TEST</Text>
         </TouchableOpacity>
       </View>
+      <ImageBackground source={require('../assets/bg.png')} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
+        <Text style={{fontSize: 30, paddingLeft: 20, color: 'white'}}>News</Text>
+      </ImageBackground>
+      <ImageBackground source={require('../assets/bg.png')} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
+        <Text style={{fontSize: 30, paddingLeft: 20, color: 'white'}}>News</Text>
+      </ImageBackground>
       <View style={styles.centeredView}>
         <Modal
           animationType="slide"
@@ -144,8 +154,8 @@ const styles = StyleSheet.create({
   },
   buttonReport: {
     backgroundColor: "white",
-    height: 100,
-    width: 100,
+    height: 110,
+    width: 110,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
