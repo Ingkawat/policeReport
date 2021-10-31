@@ -14,14 +14,16 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Context as AuthContext } from "../context/AuthContext";
 import EditProfile from "./EditProfile";
+
 import {
   Entypo,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
 
-const Account = () => {
-  const { state, signin, clearLocal } = useContext(AuthContext);
+const Account = ({navigation}) => {
+
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -34,7 +36,7 @@ const Account = () => {
           <View style={{ flexDirection: "column" }}>
             <Image
               style={[styles.imgProfile]}
-              source={require("../assets/userProfile.png")}
+              source={require("../assets/icon.png")}
             />
           </View>
           <View style={{ flexDirection: "column", justifyContent: "center" }}>
@@ -44,7 +46,7 @@ const Account = () => {
               </Text>
             </View>
             <View style={styles.row}>
-              <TouchableOpacity style={{ paddingLeft: 10 }}>
+              <TouchableOpacity style={{ paddingLeft: 10 }} onPress={() => navigation.navigate("EditProfile")}>
                 <Text style={{ textDecorationLine: "underline", fontSize: 13 }}>
                   Edit Profile
                 </Text>
@@ -67,6 +69,7 @@ const Account = () => {
                 height: 35,
                 width: "100%",
               }}
+              onPress={() => navigation.navigate("Location")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
                 <Entypo name="location" size={15} color="black" /> My Location
