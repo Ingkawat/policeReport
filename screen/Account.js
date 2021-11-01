@@ -31,8 +31,7 @@ const Account = ({navigation}) => {
           style={[
             styles.row,
             { alignItems: "center", justifyContent: "center", paddingTop: 20 },
-          ]}
-        >
+          ]}>
           <View style={{ flexDirection: "column" }}>
             <Image
               style={[styles.imgProfile]}
@@ -122,28 +121,6 @@ const Account = ({navigation}) => {
                   color="black"
                 />{" "}
                 Change Password
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderColor: "white",
-              borderBottomWidth: 1,
-              height: 35,
-              width: "80%",
-              alignItems: "flex-start",
-              marginTop: 10,
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                height: 35,
-                width: "100%",
-              }}
-              onPress={() => navigation.navigate("Help")}
-            >
-              <Text style={{ fontSize: 15, color: "grey" }}>
-                <Entypo name="help" size={15} color="black" /> Help
               </Text>
             </TouchableOpacity>
           </View>
