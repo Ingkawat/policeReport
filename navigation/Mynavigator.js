@@ -16,6 +16,7 @@ import EditProfile  from "../screen/EditProfile";
 import ChangePass from "../screen/ChangePass"
 import Status from "../screen/Status"
 import Admin from "../screen/Admin"
+import ReportDocument from "../screen/ReportDocument";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -46,6 +47,16 @@ const stack = createNativeStackNavigator();
     )
   
   }
+
+  function ReportStack(){
+    return (
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+        <stack.Screen name="Report" component={Report}/>
+        <stack.Screen name="ReportDocument" component={ReportDocument}/>
+      </stack.Navigator>
+    )
+  
+  }
   
   return (
 
@@ -61,8 +72,9 @@ const stack = createNativeStackNavigator();
             
         ):(
           <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
-            <Tab.Screen name = "Report" component={Report}
+            <Tab.Screen name = "ReportStack" component={ReportStack}
                     options={{
+                      headerShown: false,
                     tabBarLabel: 'Report',
                     tabBarIcon: ({ color, size }) => (
                       <Octicons name="report" color={color} size={size} />
