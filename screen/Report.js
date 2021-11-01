@@ -16,7 +16,7 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 
-const Report = () => {
+const Report = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
@@ -79,7 +79,7 @@ const Report = () => {
               <View style={styles.row}>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
+                  onPress={() => setModalVisible(!modalVisible),() => navigation.navigate("ReportDocument")}
                 >
                   <Text style={styles.textStyle}>ยอมรับ</Text>
                 </Pressable>
