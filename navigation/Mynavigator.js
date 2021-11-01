@@ -14,7 +14,6 @@ import Account from "../screen/Account";
 import Location from "../screen/Location"
 import EditProfile  from "../screen/EditProfile";
 import ChangePass from "../screen/ChangePass"
-import Help from "../screen/Help"
 import Status from "../screen/Status"
 import Admin from "../screen/Admin"
 
@@ -41,7 +40,6 @@ const stack = createNativeStackNavigator();
         <stack.Screen name="Location" component={Location} />
         <stack.Screen name="EditProfile" component={EditProfile} />
         <stack.Screen name="ChangePass" component={ChangePass} />
-        <stack.Screen name="Help" component={Help} />
         <stack.Screen name="Status" component={Status} />
         <stack.Screen name="Admin" component={Admin} />
       </stack.Navigator>
