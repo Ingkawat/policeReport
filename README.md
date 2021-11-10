@@ -6,3 +6,4 @@
 - yarn add @react-navigation/native
 - yarn add react-native-maps
 - expo location
+- yarn add @react-native-picker/picker
