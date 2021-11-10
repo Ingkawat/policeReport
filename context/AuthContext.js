@@ -14,6 +14,9 @@ const authReducer = (state, action) => {
             return {...state, errorMessage: action.payload};
         case 'signin':
             return {errorMessage: '' , username: action.payload};
+        case 'getReport':
+            return {...state, report: action.payload};
+            
         default:
             return state;
     }
@@ -26,8 +29,22 @@ const clearLocal = dispatch => async () => {
 
 const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem("username")
-    if(token){
-        dispatch({type: 'signin', payload: token});   
+    if(token){ 
+        
+        dispatch({type: 'signin', payload: token});  
+           
+    }
+    ;
+}
+const getReport = (dispatch) => {
+    return async () => {
+        axios
+        //use your ip address type in cmd ipconfig***
+        .post(`http://192.168.1.37:3000/report/${await AsyncStorage.getItem("username")}`)
+        .then( async (res) =>dispatch({ type: 'getReport', payload: res.data }))
+        .catch((err) => {
+            console.log(err)
+        });
     }
 }
 
@@ -37,7 +54,7 @@ const register = (dispatch) => {
     return({id_Card, fname, lname, password,phoneNumber,email}) => {
         axios
         //use your ip address type in cmd ipconfig***
-        .post("http://192.168.1.36:3000/register", {
+        .post("http://192.168.1.37:3000/register", {
           id_Card: id_Card,
           f_name: fname,
           l_name: lname,
@@ -61,7 +78,7 @@ const login = (dispatch) => {
     return ({id_card, password}) => {
         axios
         //use your ip address type in cmd ipconfig***
-        .post("http://192.168.1.36:3000/login", {
+        .post("http://192.168.1.37:3000/login", {
           id_card: id_card,
           password: password,
         })
@@ -94,6 +111,6 @@ const signout = (dispatch) => {
 
 export const {Provider, Context} = createDataContext(
     authReducer,
-    {login, signout, register, tryLocalSignin, clearLocal},
-    {username: null, errorMessage:'', isSignin: false}
+    {login, signout, register, tryLocalSignin, clearLocal, getReport},
+    {username: null, errorMessage:'', isSignin: false, report: []}
 )
