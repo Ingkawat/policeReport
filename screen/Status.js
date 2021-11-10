@@ -17,17 +17,45 @@ import {
   MaterialIcons,
   AntDesign,
 } from "@expo/vector-icons";
+import { Context as AuthContext} from "../context/AuthContext";
+import axios from "axios";
+
+
+
+
 
 const Status = () => {
+  const {state, getReport} = useContext(AuthContext)
+  const [ dreams, setDreams ] = useState([])
+  
+  useEffect(() => {
+    axios
+        //use your ip address type in cmd ipconfig***
+        .post(`http://192.168.1.37:3000/report/${state.username}`)
+        .then((res) =>{
+          setDreams(res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    
+  },[]);
+
+  console.log(dreams)
+
+  
+
+  
   return (
+    
     <SafeAreaView>
       <ScrollView>
         <View style={{paddingTop: 10}}>
-        <View
-          style={[styles.container, { backgroundColor: "white", height: 100 }]}
-        >
+        {dreams.map((prop, key) => {
+         return (
+          <View style={[styles.container, { backgroundColor: "white", height: 100 }]} key={key}>
           <View style={{ width: "20%", justifyContent: 'center', height: 100, alignItems:'center' }}>
-          <Entypo name="text-document" size={50} color="black" />
+            <Entypo name="text-document" size={50} color="black" />
           </View>
           <View style={{ width: "50%", justifyContent: 'center', height: 100 }}>
             <Text>asd</Text>
@@ -43,6 +71,11 @@ const Status = () => {
             </View>
           </View>
         </View>
+         );
+      })}
+        
+        
+        
         </View>
       </ScrollView>
     </SafeAreaView>

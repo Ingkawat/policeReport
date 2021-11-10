@@ -18,7 +18,7 @@ const EditProfile = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
-          <Image style={[styles.imgProfile]} source={require('../assets/userProfile.png')}/>
+          <Image style={[styles.imgProfile]} source={require('../assets/icon.png')}/>
           <View style={{width: '80%'}}>
             <Text style={{marginTop: 10}}>Name</Text>
             <View style={{height: 40, backgroundColor: 'white'}}>

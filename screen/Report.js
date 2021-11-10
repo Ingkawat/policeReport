@@ -15,9 +15,46 @@ import {
   ImageBackground,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
+import * as Notifications from 'expo-notifications'
+import * as Permissions from 'expo-permissions'
+import { Context as AuthContext } from "../context/AuthContext";
+import axios from "axios";
+
+const registerForPushNotificationsAsync = async() => {
+  
+  const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  if(status != 'granted'){
+    const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  }
+  if(status != 'granted'){
+    alert('Fail to get Token')
+    return;
+  }
+  const token = (await Notifications.getExpoPushTokenAsync()).data;
+  return token 
+}
+
+const updateToken = (token, id) =>{
+  axios
+  //use your ip address type in cmd ipconfig***
+  .post(`http://192.168.1.37:3000/updateToken/${token}/${id}`)
+  .then( async (res) => {
+    console.log(res.data)
+  })
+  .catch((err) => {
+
+      console.log(err)
+  
+  });
+}
 
 const Report = ({navigation}) => {
+  const {state} = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token=>updateToken(token, state.username)).catch(err=>console.log(err))
+  }, []);
+
   return (
     <View style={styles.container}>
       <View
@@ -45,7 +82,7 @@ const Report = ({navigation}) => {
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.buttonReport}
-          onPress={() => setModalVisible(true)}
+          onPress={() => navigation.navigate("ReportDocument")}
         >
           <Text>เอกสารหาย</Text>
         </TouchableOpacity>
@@ -63,7 +100,7 @@ const Report = ({navigation}) => {
         <Text style={{fontSize: 30, paddingLeft: 20, color: 'white'}}>News</Text>
       </ImageBackground>
       <View style={styles.centeredView}>
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -96,7 +133,7 @@ const Report = ({navigation}) => {
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
       </View>
     </View>
   );

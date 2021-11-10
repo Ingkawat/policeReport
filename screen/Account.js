@@ -14,7 +14,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Context as AuthContext } from "../context/AuthContext";
 import EditProfile from "./EditProfile";
-
+import * as Notification from "expo-notifications"
 import {
   Entypo,
   MaterialCommunityIcons,
@@ -22,7 +22,7 @@ import {
 } from "@expo/vector-icons";
 
 const Account = ({navigation}) => {
-
+  const {state, login, clearLocal} = useContext(AuthContext);
 
   return (
     <SafeAreaView>
@@ -148,6 +148,7 @@ const Account = ({navigation}) => {
           </View>
           <TouchableOpacity
             onPress={() => {
+              
               clearLocal();
             }}
             style={{ fontSize: 15, paddingTop: 20 }}
