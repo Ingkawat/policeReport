@@ -3,13 +3,13 @@ const pool = require("../config");
 
 router = express.Router();
 
-router.get("/login", async function (req, res, next) {
+router.post("/updateToken/:token/:idCard", async function (req, res, next) {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
   try {
-    let result = await conn.query("SELECT * FROM user");
+    let result = await conn.query("UPDATE user SET tokenNotification = ? WHERE id_card = ?", [req.params.token, req.params.idCard]);
     await conn.commit();
-    res.json({ name: result[0] });
+    res.send(result);
   } catch (err) {
     await conn.rollback();
     return res.status(400).json(err);
