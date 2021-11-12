@@ -6,6 +6,10 @@ app.use(express.json())
 const loginRouter = require('./routes/login')
 app.use(loginRouter.router)
 
+const accountRouter = require('./routes/account')
+app.use(accountRouter.router)
+
+
 const reportRouter = require('./routes/report')
 app.use(reportRouter.router)
 
