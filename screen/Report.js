@@ -13,6 +13,7 @@ import {
   ScrollView,
   Modal,
   ImageBackground,
+  Linking
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import * as Notifications from 'expo-notifications'
