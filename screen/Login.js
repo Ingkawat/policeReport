@@ -24,13 +24,13 @@ const Login = ({navigation}) => {
    
 
 const Check_onsubmit = () =>{
-  if(state1.checkIdcard == false && state1.checkPassword == true){
+  if(state1.errorIdcard != '' && state1.errorPassword == ''){
     Alert.alert("IdCrad requirement is invalid.")
 
-  }else if(state1.checkPassword == false && state1.checkIdcard == true){
+  }else if(state1.errorPassword != '' && state1.errorIdcard == ''){
     Alert.alert("Password requirement is invalid.")
   }
-  else if(state1.checkIdcard == false && state1.checkPassword == false){
+  else if(state1.errorIdcard == '=' && state1.errorPassword == ''){
     Alert.alert("Password and IdCrad requirement is invalid.")
   }
   else{

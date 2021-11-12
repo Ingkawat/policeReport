@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import {
   Button,
   Platform,
@@ -10,19 +11,66 @@ import {
   View,
   Image,
   ScrollView,
+  TouchableHighlight
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Context as AuthContext } from "../context/AuthContext";
-import EditProfile from "./EditProfile";
-import * as Notification from "expo-notifications"
+
+
+
 import {
   Entypo,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
 
-const Account = ({navigation}) => {
+
+const Account = ({navigation,route}) => {
+
+
+
+  if(route.params != undefined){
+    const e = route.params.email;
+    const p = route.params.phone;
+    console.log(e)
+    console.log(p)
+  }
+
+
   const {state, login, clearLocal} = useContext(AuthContext);
+
+
+  const [name,setName] = useState("");
+  const [lname,setLname] = useState("");
+  const [phone,setPhone] = useState("");
+  const [email,setEmail] = useState("");
+
+ 
+
+
+  useEffect(() => {
+        axios
+        //use your ip address type in cmd ipconfig***
+        .post("http://192.168.1.36:3000/account", {
+          id_card: state.username
+        })
+        .then(async (res) => {
+          setName(res.data[0][0].f_name)
+          setLname(res.data[0][0].l_name)
+          setEmail(res.data[0][0].email)
+          setPhone(res.data[0][0].phonenumber)     
+        })
+        .catch((err) => {
+            console.log("error")   
+        });
+
+
+        
+  }, []);
+
+
+
+
 
   return (
     <SafeAreaView>
@@ -32,16 +80,21 @@ const Account = ({navigation}) => {
             styles.row,
             { alignItems: "center", justifyContent: "center", paddingTop: 20 },
           ]}>
-          <View style={{ flexDirection: "column" }}>
-            <Image
-              style={[styles.imgProfile]}
-              source={require("../assets/icon.png")}
-            />
-          </View>
           <View style={{ flexDirection: "column", justifyContent: "center" }}>
             <View style={styles.row}>
               <Text style={{ paddingLeft: 10, fontSize: 20 }}>
-                Xxxxxxxxxx xxxxxxxxxxxxx
+                {name} {lname} 
+              </Text>
+            </View>
+
+            <View style={styles.row}>
+              <Text style={{ paddingLeft: 10, fontSize: 13 }}>
+                {email}
+              </Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={{ paddingLeft: 10, fontSize: 13 }}>
+                {phone}
               </Text>
             </View>
             <View style={styles.row}>
@@ -52,6 +105,8 @@ const Account = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
+
+
         </View>
         <View style={{ alignItems: "center", paddingTop: 30 }}>
           <View
