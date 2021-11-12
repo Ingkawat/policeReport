@@ -12,7 +12,7 @@ router.post("/account", async function (req, res, next) {
       let result = await conn.query("SELECT * FROM user WHERE id_card = ?", [
         id_card,
       ]);
-        res.send("testaccount");
+        res.send(result);
        
       await conn.commit();
 
