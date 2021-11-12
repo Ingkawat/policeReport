@@ -13,10 +13,9 @@ const authReducer = (state, action) => {
 
             return {...state, errorMessage: action.payload};
         case 'signin':
-            return {errorMessage: '' , username: action.payload};
+            return {errorMessage: '' , username: action.payload, role: action.role};
         case 'getReport':
             return {...state, report: action.payload};
-            
         default:
             return state;
     }
@@ -29,10 +28,17 @@ const clearLocal = dispatch => async () => {
 
 const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem("username")
-    if(token){ 
+    if(token){  
+        axios.post(`http://192.168.1.37:3000/user/${token}`)
+        .then( async (res) => {
+            
+            dispatch({type: 'signin', payload: token, role: res.data.role})
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    
         
-        dispatch({type: 'signin', payload: token});  
-           
     }
     ;
 }
@@ -84,7 +90,7 @@ const login = (dispatch) => {
         })
         .then( async (res) => {
            await AsyncStorage.setItem('username', id_card)
-           dispatch({type: 'signin', payload: id_card})
+           dispatch({type: 'signin', payload: id_card, role: res.data.role})
       
         })
         .catch((err) => {
@@ -112,5 +118,5 @@ const signout = (dispatch) => {
 export const {Provider, Context} = createDataContext(
     authReducer,
     {login, signout, register, tryLocalSignin, clearLocal, getReport},
-    {username: null, errorMessage:'', isSignin: false, report: []}
+    {username: null, errorMessage:'', isSignin: false, report: [], role:''}
 )
