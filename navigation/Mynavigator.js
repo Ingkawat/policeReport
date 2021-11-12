@@ -17,6 +17,8 @@ import ChangePass from "../screen/ChangePass"
 import Status from "../screen/Status"
 import Admin from "../screen/Admin"
 import ReportDocument from "../screen/ReportDocument";
+import PoliceHome from "../screen/PoliceHome";
+import Approve from "../screen/approve";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -57,6 +59,17 @@ const stack = createNativeStackNavigator();
     )
   
   }
+
+  function PoliceStack(){
+    return(
+      <stack.Navigator>
+        <stack.Screen name="Home" component={PoliceHome}/>
+        <stack.Screen name="Approve" component={Approve}/>
+      </stack.Navigator>
+    )
+  }
+  console.log(state.role)
+  
   
   return (
 
@@ -70,7 +83,19 @@ const stack = createNativeStackNavigator();
                 <LoginNavigator.Screen name="RegisterScreen" component={Register}/>
             </LoginNavigator.Navigator>
             
-        ):(
+        ): state.role == "police"? (
+          <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+            <Tab.Screen name = "Police" component={PoliceStack}
+                    options={{
+                      headerShown: false,
+                    tabBarLabel: 'Police',
+                    tabBarIcon: ({ color, size }) => (
+                      <Octicons name="report" color={color} size={size} />
+                    ),
+                    }}/>
+          </Tab.Navigator>
+        
+        ): state.role == "people"? (
           <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
             <Tab.Screen name = "ReportStack" component={ReportStack}
                     options={{
@@ -97,7 +122,7 @@ const stack = createNativeStackNavigator();
                   }}/>
           </Tab.Navigator>
         
-        )
+        ): null
         }
       
     </NavigationContainer>
