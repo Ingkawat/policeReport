@@ -47,16 +47,42 @@ const updateToken = (token, id) =>{
   
   });
 }
-
+var arr = []
 const Report = ({navigation}) => {
   const {state} = useContext(AuthContext);
+  
+  const [articles1,setArticles] = useState([])
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     console.log(state.role)
     registerForPushNotificationsAsync().then(token=>updateToken(token, state.username)).catch(err=>console.log(err))
+
+
+
+
+    
+    axios
+    .get("https://newsapi.org/v2/top-headlines?country=th&apiKey=4c344f6c49be434088332614e6893d6c")
+    .then( async (res) => {
+      for(var i =0; i<res.data.articles.length; i++){
+        if(i == 10){    
+          break
+        }else{
+          arr.push(res.data.articles[i]) 
+          setArticles(res.data.articles[i])
+        }
+      } 
+ 
+    })
+    .catch((err) => {
+        console.log("error")   
+    });
+
+  
   }, []);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <View
         style={[
@@ -94,12 +120,16 @@ const Report = ({navigation}) => {
           <Text>TEST</Text>
         </TouchableOpacity>
       </View>
-      <ImageBackground source={require('../assets/bg.png')} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
-        <Text style={{fontSize: 30, paddingLeft: 20, color: 'white'}}>News</Text>
-      </ImageBackground>
-      <ImageBackground source={require('../assets/bg.png')} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
-        <Text style={{fontSize: 30, paddingLeft: 20, color: 'white'}}>News</Text>
-      </ImageBackground>
+          
+      {arr.map((name,key) => {return(
+        <TouchableOpacity onPress={()=>{Linking.openURL(name.url)}}>
+            <ImageBackground source={{uri:name.urlToImage}} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
+            <Text style={{fontSize: 20, paddingLeft: 20, color: 'red'}}>{name.title}</Text>
+          </ImageBackground>
+          </TouchableOpacity>
+
+      )})}
+   
       <View style={styles.centeredView}>
         {/* <Modal
           animationType="slide"
@@ -137,6 +167,7 @@ const Report = ({navigation}) => {
         </Modal> */}
       </View>
     </View>
+    </ScrollView>
   );
 };
 
