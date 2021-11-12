@@ -10,6 +10,24 @@ import policeData from "../thiitangsthaaniitamrwcchnkhrbaal-.json";
 import { Picker } from "@react-native-picker/picker";
 import { Context as AuthContext  } from '../context/AuthContext';
 
+
+const sendPushNotification = () => {
+  let response = fetch('https://exp.host/--/api/v2/push/send',{
+    method: 'POST',
+    headers:{
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      to: 'ExponentPushToken[EXdESYPsl2mVuDVHVMaMtS]',
+      sound: 'default',
+      title: 'NEW REPORT IS COMING',
+      body: 'REPORT!!!!!!'
+    })
+  })
+}
+
+
 const addReport = (idcard, station, lostPaper) => {
   axios
         //use your ip address type in cmd ipconfig***
@@ -19,7 +37,7 @@ const addReport = (idcard, station, lostPaper) => {
         })
         .then( async (res) => {
           axios.post("http://192.168.1.37:3000/report/important", {missing_type: lostPaper})
-               .then( async (res) => {console.log("complete")})
+               .then( async (res) => {sendPushNotification()})
                .catch((err) => {console.log(err)});
         })
         .catch((err) => {
@@ -72,6 +90,7 @@ function ReportDocument() {
       </Picker>
       <Text>รายละเอียดเพิ้มเติม</Text>
       <Button title="แจ้งความ" onPress={()=>{addReport(state.username, selectStation, selectlostPaper)}}/>
+      
       
     </View>
   );

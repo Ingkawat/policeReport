@@ -39,7 +39,7 @@ const updateToken = (token, id) =>{
   //use your ip address type in cmd ipconfig***
   .post(`http://192.168.1.37:3000/updateToken/${token}/${id}`)
   .then( async (res) => {
-    console.log(res.data)
+    console.log("update Token")
   })
   .catch((err) => {
 
@@ -52,6 +52,7 @@ const Report = ({navigation}) => {
   const {state} = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
+    console.log(state.role)
     registerForPushNotificationsAsync().then(token=>updateToken(token, state.username)).catch(err=>console.log(err))
   }, []);
 

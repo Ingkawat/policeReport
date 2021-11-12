@@ -26,14 +26,14 @@ import axios from "axios";
 
 const Status = () => {
   const {state, getReport} = useContext(AuthContext)
-  const [ dreams, setDreams ] = useState([])
+  const [ report, setreport ] = useState([])
   
   useEffect(() => {
     axios
         //use your ip address type in cmd ipconfig***
         .post(`http://192.168.1.37:3000/report/${state.username}`)
         .then((res) =>{
-          setDreams(res.data)
+          setreport(res.data)
         })
         .catch((err) => {
             console.log(err)
@@ -41,7 +41,7 @@ const Status = () => {
     
   },[]);
 
-  console.log(dreams)
+  console.log(report)
 
   
 
@@ -51,7 +51,7 @@ const Status = () => {
     <SafeAreaView>
       <ScrollView>
         <View style={{paddingTop: 10}}>
-        {dreams.map((prop, key) => {
+        {report.map((prop, key) => {
          return (
           <View style={[styles.container, { backgroundColor: "white", height: 100 }]} key={key}>
           <View style={{ width: "20%", justifyContent: 'center', height: 100, alignItems:'center' }}>
