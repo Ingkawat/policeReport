@@ -8,6 +8,9 @@ CREATE TABLE `user` (
   `phonenumber` varchar(250),
   `email` varchar(250),
   `tokenNotification` varchar(250),
+  `role` ENUM('people', 'police') DEFAULT 'people',
+  `station` int(10),
+  
   PRIMARY KEY (`id_card`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
@@ -27,6 +30,7 @@ CREATE TABLE `report` (
   `date` varchar(250),
   `status` ENUM('pending', 'inprocess','success')DEFAULT 'pending' ,
   `station` int(10) ,
+  `approve_file` varchar(250),
   PRIMARY KEY (`report_id`),
   FOREIGN KEY (`userid_card`) 
   REFERENCES `user`(`id_card`),
@@ -42,6 +46,10 @@ CREATE TABLE `important_miss` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id`) REFERENCES `report`(`report_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO user(`id_card`, `f_name`, `l_name`, `password`, `role`, `station`) VALUES 
+(1234567891234, "police1", "police", "Police_1234", 'police', 1),
+(1234567890123, "police2", "police", "Police_1234", 'police', 2);
 
 INSERT INTO police_station(`name`) VALUES
 ("สถานีตำรวจนครบาลโคกคราม"),
