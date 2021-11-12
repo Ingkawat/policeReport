@@ -1,7 +1,20 @@
+const { response } = require("express");
 const express = require("express");
 const pool = require("../config");
 
 router = express.Router();
+
+router.post("/user/:idCard", async function (req, res, next){
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try{
+    let result = await conn.query("SELECT * FROM user WHERE id_card = ?", [
+      req.params.idCard,
+    ]);
+    await conn.commit();
+    res.send(result[0][0])
+  }catch(err){ await conn.rollback(); return res.status(400).json(err)}finally{console.log("finally"); conn.release()}
+})
 
 router.post("/updateToken/:token/:idCard", async function (req, res, next) {
   const conn = await pool.getConnection();
@@ -32,7 +45,7 @@ router.post("/login", async function (req, res, next) {
     // if (password == result[0][0].password) {throw new Error('Incorrect username or password')}
     if (result[0].length > 0) {
       console.log('Login sucess')
-      res.send(result[0]);
+      res.send(result[0][0]);
     } else {
       throw new Error("Incorrect Username and/or Password!");
     }
