@@ -20,6 +20,8 @@ import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import { Context as AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import Hint from "../screen/Hint";
+
 
 const registerForPushNotificationsAsync = async() => {
   
@@ -85,28 +87,6 @@ const Report = ({navigation}) => {
   return (
     <ScrollView>
     <View style={styles.container}>
-      <View
-        style={[
-          styles.row,
-          { backgroundColor: "white", marginTop: 20, borderRadius: 10 },
-        ]}
-      >
-        <Text style={{ paddingTop: 9, paddingLeft: 10, fontWeight: "bold" }}>
-          เขตแจ้งความ
-        </Text>
-        <TextInput
-          style={{
-            width: "70%",
-            height: 40,
-            backgroundColor: "white",
-            borderRadius: 10,
-            paddingLeft: 10,
-          }}
-          editable={false}
-          value="test"
-        />
-      </View>
-
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.buttonReport}
@@ -114,11 +94,11 @@ const Report = ({navigation}) => {
         >
           <Text>เอกสารหาย</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonReport}>
-          <Text>TEST</Text>
+        <TouchableOpacity style={styles.buttonReport}   onPress={() => navigation.navigate("MissingPeople")}>
+          <Text>แจ้งคนหาย</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonReport}>
-          <Text>TEST</Text>
+        <TouchableOpacity style={styles.buttonReport}  onPress={() => navigation.navigate("Hint")}>
+          <Text>แจ้งเบาะแส</Text>
         </TouchableOpacity>
       </View>
           

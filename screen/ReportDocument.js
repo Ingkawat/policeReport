@@ -29,14 +29,25 @@ const sendPushNotification = () => {
 
 
 const addReport = (idcard, station, lostPaper) => {
+  var date = new Date().getDate();
+  var month = new Date().getMonth() + 1; 
+  var year = new Date().getFullYear(); 
+  var hours = new Date().getHours(); 
+  var min = new Date().getMinutes(); 
+  var sec = new Date().getSeconds(); 
+  var datetext = date.toString()+"/" + month.toString() +"/"+year.toString()+"-"+hours.toString()+":"+min.toString()+":"+sec.toString()
+
+  console.log(datetext)
+
   axios
         //use your ip address type in cmd ipconfig***
-        .post(`http://192.168.1.37:3000/report/important/${idcard}`, {
+        .post(`http://192.168.1.36:3000/report/important/${idcard}`, {
           report_type: "เอกสารหาย",
-          station: station
+          station: station,
+          date: datetext
         })
         .then( async (res) => {
-          axios.post("http://192.168.1.37:3000/report/important", {missing_type: lostPaper})
+          axios.post("http://192.168.1.36:3000/report/important", {missing_type: lostPaper})
                .then( async (res) => {sendPushNotification()})
                .catch((err) => {console.log(err)});
         })
