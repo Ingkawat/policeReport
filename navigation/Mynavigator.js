@@ -19,17 +19,15 @@ import Admin from "../screen/Admin"
 import ReportDocument from "../screen/ReportDocument";
 import PoliceHome from "../screen/PoliceHome";
 import Approve from "../screen/approve";
+import MissingPeople from "../screen/MissingPeople"
+import Hint from "../screen/Hint";
+import ReportHint from "../screen/ReportHint";
+import StatusInfo from "../screen/StatusInfo";
+import Goodpeople from "../screen/Goodpeople";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
 
-// function SigninNavigator(){
-//     <LoginNavigator.Navigator>
-//         <LoginNavigator.Screen name = "Login" component={Login}/>
-//         <LoginNavigator.Screen name = "Signin" component={Signin}/>
-//         <LoginNavigator.Screen name = "Home" component={Home}/>
-//     </LoginNavigator.Navigator>
-// }
 
 export default function Mynavigator() {
   const {state, tryLocalSingin} = useContext(AuthContext);  
@@ -44,6 +42,7 @@ const stack = createNativeStackNavigator();
         <stack.Screen name="EditProfile" component={EditProfile} />
         <stack.Screen name="ChangePass" component={ChangePass} />
         <stack.Screen name="Status" component={Status} />
+        <stack.Screen name="Info" component={StatusInfo}/>
         <stack.Screen name="Admin" component={Admin} />
       </stack.Navigator>
     )
@@ -55,6 +54,9 @@ const stack = createNativeStackNavigator();
       <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
         <stack.Screen name="Report" component={Report}/>
         <stack.Screen name="ReportDocument" component={ReportDocument}/>
+        <stack.Screen name="MissingPeople" component={MissingPeople}/>
+        <stack.Screen name="Hint" component={Hint} />
+        <stack.Screen name="ReportHint" component={ReportHint}/>
       </stack.Navigator>
     )
   
@@ -65,6 +67,7 @@ const stack = createNativeStackNavigator();
       <stack.Navigator>
         <stack.Screen name="Home" component={PoliceHome}/>
         <stack.Screen name="Approve" component={Approve}/>
+        <stack.Screen name="Goodpeople" component={Goodpeople}/>
       </stack.Navigator>
     )
   }
@@ -72,8 +75,6 @@ const stack = createNativeStackNavigator();
   
   
   return (
-
-    
 
     <NavigationContainer >
 
