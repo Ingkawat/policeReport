@@ -66,7 +66,7 @@ const Account = ({navigation,route}) => {
 
 
         
-  }, []);
+  });
 
 
 
