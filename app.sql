@@ -15,6 +15,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
+
+
 DROP TABLE IF EXISTS `police_station`;
 CREATE TABLE `police_station` (
   `id` int(10) AUTO_INCREMENT,
@@ -31,6 +33,7 @@ CREATE TABLE `report` (
   `status` ENUM('pending', 'inprocess','success')DEFAULT 'pending' ,
   `station` int(10) ,
   `approve_file` varchar(250),
+  `police_id` varchar(250),
   PRIMARY KEY (`report_id`),
   FOREIGN KEY (`userid_card`) 
   REFERENCES `user`(`id_card`),
@@ -50,6 +53,32 @@ CREATE TABLE `important_miss` (
 INSERT INTO user(`id_card`, `f_name`, `l_name`, `password`, `role`, `station`) VALUES 
 (1234567891234, "police1", "police", "Police_1234", 'police', 1),
 (1234567890123, "police2", "police", "Police_1234", 'police', 2);
+
+
+DROP TABLE IF EXISTS `missing_people`;
+CREATE TABLE `missing_people` (
+  `id` int(10),
+  `missing_name` varchar(250),
+  `image_people` varchar(250),
+  `missing_idcard` varchar(250),
+  `missing_des` varchar(250),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id`) REFERENCES `report`(`report_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `good_people`;
+CREATE TABLE `good_people` (
+  `id` int(10)  AUTO_INCREMENT,
+  `good_id` int(10),
+  `good_peopleid` varchar(250),
+  `good_des` varchar(250),
+  `good_image` varchar(250),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`good_id`) REFERENCES `missing_people`(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
 
 INSERT INTO police_station(`name`) VALUES
 ("สถานีตำรวจนครบาลโคกคราม"),
