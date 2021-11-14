@@ -67,6 +67,7 @@ const Report = ({navigation}) => {
     axios
     .get("https://newsapi.org/v2/top-headlines?country=th&apiKey=4c344f6c49be434088332614e6893d6c")
     .then( async (res) => {
+      arr = []
       for(var i =0; i<res.data.articles.length; i++){
         if(i == 10){    
           break
