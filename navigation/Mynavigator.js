@@ -36,7 +36,7 @@ const stack = createNativeStackNavigator();
 
   function AccountStack(){
     return (
-      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
         <stack.Screen name="Account" component={Account}/>
         <stack.Screen name="Location" component={Location} />
         <stack.Screen name="EditProfile" component={EditProfile} />
@@ -51,7 +51,7 @@ const stack = createNativeStackNavigator();
 
   function ReportStack(){
     return (
-      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
         <stack.Screen name="Report" component={Report}/>
         <stack.Screen name="ReportDocument" component={ReportDocument}/>
         <stack.Screen name="MissingPeople" component={MissingPeople}/>
@@ -97,7 +97,7 @@ const stack = createNativeStackNavigator();
           </Tab.Navigator>
         
         ): state.role == "people"? (
-          <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+          <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
             <Tab.Screen name = "ReportStack" component={ReportStack}
                     options={{
                       headerShown: false,
