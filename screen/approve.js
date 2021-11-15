@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { View,  Text, Button, Image} from "react-native";
+import { View,  Text, Button, Image,Linking} from "react-native";
 import * as DocumentPicker from 'expo-document-picker';
 
 import axios from "axios";
+import { Platform } from "expo-modules-core";
 
 
 
@@ -10,6 +11,16 @@ const Approve = ({route, navigation}) => {
     const {report_id, user_id, police_id, report_type} = route.params
     const [report,setReport] = useState(null)
 
+const makecall = (phone) =>{
+  let phonenumber = phone
+  if(Platform.OS === 'android'){
+    phonenumber = 'tel:$('+phonenumber+')'
+  }else{
+    phonenumber = 'tel:$('+phonenumber+')'
+  }
+
+  Linking.openURL(phonenumber)
+}
 
     
     
@@ -85,6 +96,7 @@ const Approve = ({route, navigation}) => {
     }
     return(
       <View>
+      
     {report_type == "เอกสารหาย" ? 
     <View>
           <Button title="..." onPress={() => console.log('test')}/>
@@ -108,11 +120,11 @@ const Approve = ({route, navigation}) => {
            </View>
            <View>
            <Text>ข้อมูลส่วนผู้แจ้ง</Text>
-
+           <Button title="call" onPress={()=>{makecall(report[0].phonenumber)}}></Button>
            <Text>{user_id}</Text>
            <Image style={{height: 100, width: 100}} source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}}></Image>
            <Text>{report[0].f_name} {report[0].l_name}</Text>
-           <Text>{report[0].email} {report[0].phonenumber}</Text>
+           <Text>{report[0].email}</Text>
            <Text>เวลาที่แจ้งไป {report[0].date}</Text>
            </View>
            <Button title="เบาะแส จากผู้คน" onPress={() => navigation.navigate("Goodpeople",{id:report[0].id})}/>
