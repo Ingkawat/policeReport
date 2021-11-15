@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet,Image} from "react-native";
 import axios from "axios";
 
 const StatusInfo = ({route}) => {
@@ -63,6 +63,7 @@ const StatusInfo = ({route}) => {
                 <Text>{info.f_name}  {info.l_name}</Text>
                 <Text>{info.email}</Text>
                 <Text>{info.phonenumber}</Text>
+                <Image style={{height: 100, width: 100}} source={{uri:"http://192.168.1.36:3000/"+info.imageuser}}></Image>
            
             <Text>{info.missing_type}</Text>
             <Text>{info.police_id}</Text>
@@ -80,6 +81,7 @@ const StatusInfo = ({route}) => {
                 <Text>{info.f_name}  {info.l_name}</Text>
                 <Text>{info.email}</Text>
                 <Text>{info.phonenumber}</Text>
+                <Image style={{height: 100, width: 100}} source={{uri:"http://192.168.1.36:3000/"+info.imageuser}}></Image>
            
             <Text>{info.des}</Text>
             <Text>{info.police_id}</Text>

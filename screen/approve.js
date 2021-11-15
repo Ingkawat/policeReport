@@ -108,12 +108,14 @@ const Approve = ({route, navigation}) => {
            </View>
            <View>
            <Text>ข้อมูลส่วนผู้แจ้ง</Text>
+
            <Text>{user_id}</Text>
+           <Image style={{height: 100, width: 100}} source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}}></Image>
            <Text>{report[0].f_name} {report[0].l_name}</Text>
            <Text>{report[0].email} {report[0].phonenumber}</Text>
            <Text>เวลาที่แจ้งไป {report[0].date}</Text>
            </View>
-           <Button title="เบาะแส จากผู้คน" onPress={() => navigation.navigate("Goodpeople",{id:id})}/>
+           <Button title="เบาะแส จากผู้คน" onPress={() => navigation.navigate("Goodpeople",{id:report[0].id})}/>
             <Button title="Approve!!!" onPress={() => {Approve(report_id),navigation.popToTop()}}/>
      </View>
             :<Text>loading</Text>
