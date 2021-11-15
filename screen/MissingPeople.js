@@ -116,7 +116,7 @@ const addReport3 = (sta) =>{
   var sec = new Date().getSeconds(); 
   var datetext = date.toString()+"/" + month.toString() +"/"+year.toString()+"-"+hours.toString()+":"+min.toString()+":"+sec.toString()
   axios
-  .post("http://192.168.1.36:3000/report/missingpeople/update", {
+  .post("http://192.168.1.113:3000/report/missingpeople/update", {
     name: name,
     des: des,
     peopleid: peopleid,
@@ -148,7 +148,7 @@ const addReport3 = (sta) =>{
   data.append("id",state.username)
   console.log(data)
   axios
-  .put("http://192.168.1.36:3000/report/missingpeople",data)
+  .put("http://192.168.1.113:3000/report/missingpeople",data)
   .then( async (res) => {
     console.log(res.data)
   })
@@ -159,7 +159,7 @@ const addReport3 = (sta) =>{
 
   return (  
     <View style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}>
-      <View style={{ width: "80%" }}>
+      <View style={{ margin: 20 }}>
         <Text style={{ marginTop: 10 }}>ชื่อ - นามสกุล</Text>
         <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
           <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
@@ -178,7 +178,7 @@ const addReport3 = (sta) =>{
             <TextInput style={{height: 35, width: '100%', paddingLeft: 10}}  onChangeText={(value) => {setpeopleid(value)}}/>
           </View>
         </View>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 10}}>
           <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'50%'}}>
             <TouchableOpacity onPress={()=>{chooseimage1()}}  style={{backgroundColor:'lightblue', height: 35, borderWidth: 1, borderColor: '#e1e1e1', borderRadius: 10, justifyContent: 'center', alignItems: 'center', width: '100%'}}>
               <Text>Choose File</Text>
@@ -188,9 +188,10 @@ const addReport3 = (sta) =>{
             <Text style={{paddingLeft: 10}}>ภาพถ่ายคนหาย</Text>
           </View>
         </View>
-       
+        <View style={{paddingBottom: 10}}/>
+        <Button title="แจ้งความ" onPress={()=>{setModalVisible(true),addReport()}}/>
       </View>
-      <Button title="แจ้งความ" onPress={()=>{setModalVisible(true),addReport()}}/>
+      
 
       <View style={styles.centeredView}>
         <Modal
