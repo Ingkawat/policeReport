@@ -47,7 +47,7 @@ const EditProfile = ({navigation}) => {
    
     axios
     //use your ip address type in cmd ipconfig***
-    .post("http://192.168.1.36:3000/account", {
+    .post("http://192.168.1.113:3000/account", {
       id_card: state.username
     })
     .then(async (res) => {
@@ -89,23 +89,29 @@ const valid = async () =>{
 }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
       <ScrollView>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
 
           <View style={{width: '80%'}}>
             <Text style={{marginTop: 10}}>Name</Text>
-            <View style={{height: 40, backgroundColor: 'white'}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}} value={name+"  "+lname} editable={false}/>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} value={name+"  "+lname} editable={false}/>
+            </View>
             </View>
             <Text style={{marginTop: 10}}>ID Card</Text>
-            <View style={{height: 40, backgroundColor: 'white'}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}} value={state.username} editable={false}/>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} value={state.username} editable={false}/>
+            </View>
             </View>
 
             <Text style={{marginTop: 10}}>Email</Text>
-            <View style={{height: 40, backgroundColor: 'white'}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}}   defaultValue={oemail} onChangeText={(value) => {validate_Email(value),setEmail(value)}}/>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}}   defaultValue={oemail} onChangeText={(value) => {validate_Email(value),setEmail(value)}}/>
+            </View>
             </View>
             {state2.errorEmail ?
           <Animatable.View animation="fadeInLeft" duration={500}>
@@ -114,15 +120,19 @@ const valid = async () =>{
 
 
             <Text style={{marginTop: 10}}>Phone</Text>
-            <View style={{height: 40, backgroundColor: 'white', marginBottom: 20}}>
-              <View style={styles.row}></View>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}}   defaultValue={ophone} onChangeText={(value) => {validate_Phonenumber(value),setPhone(value)}}/>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} defaultValue={ophone} onChangeText={(value) => {validate_Phonenumber(value),setPhone(value)}}/>
+            </View>
             </View>
             {state2.errorPhonenumber ?
           <Animatable.View animation="fadeInLeft" duration={500}>
            <Text style={{color:"red",left:-36}}>{state2.errorPhonenumber}</Text>
           </Animatable.View> :null }
-            <Button title="Update" color="green" onPress={() =>  valid()}></Button>
+          <View style={{paddingTop: 20}}>
+          <Button title="Update" color="green" onPress={() =>  valid()}></Button>
+          </View>
+            
           </View>
         </View>
       </ScrollView>

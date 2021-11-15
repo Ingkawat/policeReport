@@ -6,8 +6,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { Context  as ValidationContext} from '../context/ValidationContext';
 import Header from "../components/Hearders";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-
+import { MaterialIcons,Feather,FontAwesome5, AntDesign  } from '@expo/vector-icons'; 
 
 const Register = ({navigation}) => {
   const {state, register} = useContext(AuthContext);
@@ -57,12 +56,12 @@ const Register = ({navigation}) => {
 
 
   return (
-    <View style={styles.screen}>
-      <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
+    <View style={[styles.screen, {backgroundColor: '#483434'}]}>
       <SafeAreaView style={styles.container}>
         
      
-      <Header title="Police Report"/>
+      <MaterialIcons name="local-police" size={80} color="orange" />
+      <Text style={{color: 'white', fontSize: 30, fontWeight: "bold", paddingBottom: 50, paddingTop: 35}}>POLICE REPORT</Text>
 
       <View style={[styles.action, {width: '80%'}]}>
         <FontAwesome name='user-o' size={20} />
@@ -72,7 +71,7 @@ const Register = ({navigation}) => {
       </View>
       {state1.errorFname ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorFname}</Text>
+           <Text style={{color:"red"}}>{state1.errorFname}</Text>
           </Animatable.View> :null }
 
 
@@ -84,42 +83,42 @@ const Register = ({navigation}) => {
       </View>
       {state1.errorLname ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorLname}</Text>
+           <Text style={{color:"red"}}>{state1.errorLname}</Text>
           </Animatable.View> :null }
 
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
-        <FontAwesome name='user-o' size={20} />
+        <Feather name='smartphone' size={20} />
         <TextInput style={styles.textInput} placeholder="PhoneNumber" keyboardType="default" placeholderTextColor="white"
          value = {phoneNumber} onChangeText={(value) => {setPhoneNumber(value), validate_Phonenumber(value)}}
          ></TextInput>
       </View>
       {state1.errorPhonenumber ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorPhonenumber}</Text>
+           <Text style={{color:"red"}}>{state1.errorPhonenumber}</Text>
           </Animatable.View> :null }
 
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
-        <FontAwesome name='user-o' size={20} />
+      <FontAwesome5 name="id-card" size={20} color="black" />
         <TextInput style={styles.textInput} placeholder="ID Card" keyboardType="default" placeholderTextColor="white"
         value = {id_Card} onChangeText={(value) => {setId_Card(value), validate_Idcard(value)}}
         ></TextInput>
       </View>
       {state1.errorIdcard ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorIdcard}</Text>
+           <Text style={{color:"red"}}>{state1.errorIdcard}</Text>
           </Animatable.View> :null }
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
-        <FontAwesome name='user-o' size={20} />
+      <AntDesign name="mail" size={20} color="black" />
         <TextInput style={styles.textInput} placeholder="Email" keyboardType="default" placeholderTextColor="white" autoCapitalize="none"
         value = {email} onChangeText={(value) => {setEmail(value), validate_Email(value)}}
         ></TextInput>
       </View>
       {state1.errorEmail ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorEmail}</Text>
+           <Text style={{color:"red"}}>{state1.errorEmail}</Text>
           </Animatable.View>: null }
 
 
@@ -131,7 +130,7 @@ const Register = ({navigation}) => {
       </View>
       {state1.errorPassword ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorPassword}</Text>
+           <Text style={{color:"red"}}>{state1.errorPassword}</Text>
           </Animatable.View>: null }
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
@@ -142,7 +141,7 @@ const Register = ({navigation}) => {
       </View>
       {conpass ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{conpass}</Text>
+           <Text style={{color:"red"}}>{conpass}</Text>
           </Animatable.View>: null }
 
 
@@ -159,7 +158,6 @@ const Register = ({navigation}) => {
 
  
     </SafeAreaView>
-    </ImageBackground>
   </View>
 
   

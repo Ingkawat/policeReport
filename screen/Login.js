@@ -7,7 +7,7 @@ import { Context  as ValidationContext} from '../context/ValidationContext';
 
 import Header from "../components/Hearders";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { MaterialIcons,Feather } from '@expo/vector-icons'; 
 
 
 const Login = ({navigation}) => {
@@ -40,10 +40,10 @@ const Check_onsubmit = () =>{
 
 
   return (
-    <View style={styles.screen}>
-    <ImageBackground source={require('../assets/bg.png')} style={styles.backgroundImage}>
+    <View style={[styles.screen, {backgroundColor: '#483434'}]}>
     <SafeAreaView style={styles.container}>
-      <Header title="Police Report"/>
+    <MaterialIcons name="local-police" size={80} color="orange" />
+      <Text style={{color: 'white', fontSize: 30, fontWeight: "bold", paddingBottom: 50, paddingTop: 35}}>POLICE REPORT</Text>
       <View style={[styles.action, {width: '80%'}]}>
         <Icon name='user-o' size={20} />
         <TextInput style={styles.textInput} placeholder="ID CARD" keyboardType="default" placeholderTextColor="white"
@@ -56,11 +56,11 @@ const Check_onsubmit = () =>{
       </View>
       {state1.errorIdcard ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state1.errorIdcard}</Text>
+           <Text style={{color:"red"}}>{state1.errorIdcard}</Text>
           </Animatable.View> :null }
 
       <View style={[styles.action, {width: '80%', marginTop: 35}]}>
-        <Icon name='lock' size={30} />
+      <Feather name="lock" size={20} color="black" />
         <TextInput style={styles.textInput} placeholder="Password" keyboardType="default" secureTextEntry={true} placeholderTextColor="white"
           value={password}
           onChangeText={(value)=>{setPassword(value),validate_Password(value)
@@ -85,11 +85,10 @@ const Check_onsubmit = () =>{
 
       {state.errorMessage ? 
       <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
-           <Text style={{color:"red"}}>{state.errorMessage}</Text>
-          </Animatable.View>: null} 
+        <Text style={{color:"red"}}>{state.errorMessage}</Text>
+      </Animatable.View>: null} 
    
     </SafeAreaView>
-    </ImageBackground>
   </View>
  
   );
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    color: '#05375a'
+    color: '#ffff'
   },
   backgroundImage: {
     flex: 1,

@@ -49,16 +49,19 @@ const ChangePass = () => {
   const [newpassword, setNewpassword] = useState("");
   const [conpass, setConpass] = useState("");
   return (
-    <View style={{flex: 1, alignItems: 'center', marginTop: 20}}>
-          <View style={{width: '80%'}}>
+    <View style={{flex: 1, alignItems: 'center', backgroundColor:'white'}}>
+      <View style={{paddingTop: 20}}>
+      <View style={{width: '80%'}}>
             <Text style={{marginTop: 10}}>Old Password</Text>
-            <View style={{height: 40, backgroundColor: 'white'}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}} secureTextEntry={true} editable={true} onChangeText={setOldpassword} value={oldpassword}/>
-            </View>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} secureTextEntry={true} editable={true} onChangeText={setOldpassword} value={oldpassword}/>
+            </View></View>
             <Text style={{marginTop: 10}}>New Password</Text>
-            <View style={{height: 40, backgroundColor: 'white'}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}} secureTextEntry={true} editable={true} value={newpassword} onChangeText={(value)=>{setNewpassword(value),validate_Password(value)}}/>
-            </View>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} secureTextEntry={true} editable={true} value={newpassword} onChangeText={(value)=>{setNewpassword(value),validate_Password(value)}}/>
+            </View></View>
           
         {state2.errorPassword ? 
           <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
@@ -66,11 +69,16 @@ const ChangePass = () => {
           </Animatable.View>: null} 
 
             <Text style={{marginTop: 10}}>Confirm New Password</Text>
-            <View style={{height: 40, backgroundColor: 'white', marginBottom: 20}}>
-            <TextInput style={{backgroundColor: 'white', height: 40, paddingLeft: 10}} secureTextEntry={true} value={conpass} editable={true} onChangeText={setConpass}/>
-            </View>
-            <Button title="Change Password" color="green" onPress={()=>{valid()}}></Button>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+          <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+            <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} secureTextEntry={true} value={conpass} editable={true} onChangeText={setConpass}/>
+            </View></View>
+            <View style={{paddingTop: 20}}>
+          <Button title="Update" color="green" onPress={() =>  valid()}></Button>
           </View>
+          </View>
+      </View>
+          
         </View>
   );
 };

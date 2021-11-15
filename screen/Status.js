@@ -43,7 +43,7 @@ const Status = ({navigation}) => {
   useEffect(() => {
     axios
       //use your ip address type in cmd ipconfig***
-      .post(`http://192.168.1.36:3000/report/${state.username}`)
+      .post(`http://192.168.1.113:3000/report/${state.username}`)
       .then((res) => {
         setreport(res.data);
         
@@ -58,22 +58,22 @@ const Status = ({navigation}) => {
 const [color,setColor] = useState("gray")
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <View style={{ paddingTop: 10 }}>
+        
           {report.map((prop, key) => {
             return (
               <TouchableOpacity key={key} onPress={()=>{navigation.navigate("Info", {report_id: prop.report_id,police_id:prop.police_id,report_type:prop.report_type})}} >
               <View
                 style={[
                   styles.container,
-                  { backgroundColor: "white", height: 100 },
+                  { backgroundColor: "white", height: 100, borderBottomWidth: 1, borderBottomColor: '#E4DFD9' },
                 ]}
                 
               >
                 <View
                   style={{
-                    width: "20%",
+                    width: "15%",
                     justifyContent: "center",
                     height: 100,
                     alignItems: "center",
@@ -83,7 +83,7 @@ const [color,setColor] = useState("gray")
                 </View>
                 <View
                   style={{
-                    width: "50%",
+                    width: "45%",
                     justifyContent: "center",
                     height: 100,
                   }}
@@ -94,14 +94,14 @@ const [color,setColor] = useState("gray")
                 </View>
                 <View
                   style={{
-                    width: "30%",
+                    width: "35%",
                     justifyContent: "center",
                     height: 100,
                   }}
                 >
                   <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                     <AntDesign name="calendar" size={20} color="black" />
-                    <Text> {prop.date}</Text>
+                    <Text style={{fontSize: 12}}> {prop.date}</Text>
                   </View>
                   <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                   
@@ -112,7 +112,6 @@ const [color,setColor] = useState("gray")
               </TouchableOpacity>
             );
           })}
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
