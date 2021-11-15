@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
     width: 100,
     borderWidth: 1,
     borderRadius: 60,
+    borderColor: 'black'
   },
 });
 
