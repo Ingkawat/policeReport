@@ -5,6 +5,6 @@
 - yarn add @react-navigation/bottom-tabs
 - yarn add @react-navigation/native
 - yarn add react-native-maps
-- expo location
+- yarn add expo-location
 - yarn add @react-native-picker/picker
 - yarn add multer
