@@ -15,6 +15,7 @@ import {
 } from "react-native";
 
 import { Context as AuthContext } from "../context/AuthContext";
+import * as ImagePicker from 'expo-image-picker';
 
 
 
@@ -28,15 +29,6 @@ import {
 const Account = ({navigation,route}) => {
 
 
-
-  if(route.params != undefined){
-    const e = route.params.email;
-    const p = route.params.phone;
-    console.log(e)
-    console.log(p)
-  }
-
-
   const {state, login, clearLocal} = useContext(AuthContext);
 
 
@@ -44,11 +36,16 @@ const Account = ({navigation,route}) => {
   const [lname,setLname] = useState("");
   const [phone,setPhone] = useState("");
   const [email,setEmail] = useState("");
+  const [image,setImage] = useState("");
+  const [imagenew,setImagenew] = useState(null);
+
+
 
  
 
 
   useEffect(() => {
+
         axios
         //use your ip address type in cmd ipconfig***
         .post("http://192.168.1.36:3000/account", {
@@ -59,22 +56,74 @@ const Account = ({navigation,route}) => {
           setLname(res.data[0][0].l_name)
           setEmail(res.data[0][0].email)
           setPhone(res.data[0][0].phonenumber)     
+          setImagenew(res.data[0][0].imageuser)
+
+          console.log(imagenew)
+      
         })
         .catch((err) => {
             console.log("error")   
-        });
-
-
-        
+        });   
   });
 
+  const chooseimage = async ()=>{
 
+    let result = await ImagePicker.launchImageLibraryAsync({
+     mediaTypes: ImagePicker.MediaTypeOptions.All,
+     allowsEditing: true,
+     aspect: [4, 3],
+     quality: 1,
+   });
+   setImage(result.uri)
+
+   const data = new FormData();
+   let doc = {uri: result.uri, name: "name.jpg", type: 'image'}
+   data.append("image", doc)
+   data.append("id",state.username)
+   axios
+   .post("http://192.168.1.36:3000/addimage/account",data)
+   .then( async (res) => {
+    axios
+    //use your ip address type in cmd ipconfig***
+    .post("http://192.168.1.36:3000/account", {
+      id_card: state.username
+    })
+    .then(async (res) => {
+      setImagenew(res.data[0][0].imageuser)
+
+      console.log(imagenew)
+  
+    })
+    .catch((err) => {
+        console.log("error")   
+    });   
+    
+   })
+   .catch((err) => {
+       console.log(err)
+   });
+
+   setcount(0)
+  }
 
 
 
   return (
     <SafeAreaView>
       <ScrollView>
+        {imagenew == null ? <View>
+          <TouchableOpacity onPress={()=>{chooseimage()}}>
+      <Image style={styles.image} source={{uri:image}}></Image>
+      </TouchableOpacity>
+
+        </View>:
+        <View>
+                    <TouchableOpacity onPress={()=>{chooseimage()}}>
+      <Image style={styles.image} source={{uri:"http://192.168.1.36:3000/"+imagenew}}></Image>
+      </TouchableOpacity>
+        </View>
+        }
+ 
         <View
           style={[
             styles.row,
@@ -82,6 +131,7 @@ const Account = ({navigation,route}) => {
           ]}>
           <View style={{ flexDirection: "column", justifyContent: "center" }}>
             <View style={styles.row}>
+          
               <Text style={{ paddingLeft: 10, fontSize: 20 }}>
                 {name} {lname} 
               </Text>
@@ -223,6 +273,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  image: {
+    width: 150,
+    height: 150,
+    borderColor: 'red',
+    borderWidth: 2,
+    borderRadius: 75
   },
   row: {
     flexDirection: "row",
