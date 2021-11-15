@@ -10,7 +10,7 @@ import {
   View,
   Image,
   ScrollView,
-  RefreshControl
+  RefreshControl,
 } from "react-native";
 import {
   Entypo,
@@ -22,17 +22,17 @@ import { Context as AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import policeData from "../thiitangsthaaniitamrwcchnkhrbaal-.json";
 
-const wait = timeout => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const Status = ({navigation}) => {
+const Status = ({ navigation }) => {
   const { state, getReport } = useContext(AuthContext);
   const [report, setreport] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
-  const police_station = ['-']
-  for(let i = 0; i < policeData.features.length; i++){
-    police_station.push(policeData.features[i].properties.name)
+  const police_station = ["-"];
+  for (let i = 0; i < policeData.features.length; i++) {
+    police_station.push(policeData.features[i].properties.name);
   }
 
   const onRefresh = React.useCallback(() => {
@@ -43,75 +43,238 @@ const Status = ({navigation}) => {
   useEffect(() => {
     axios
       //use your ip address type in cmd ipconfig***
-      .post(`http://192.168.1.113:3000/report/${state.username}`)
+      .post(`http:/192.168.1.113:3000/report/${state.username}`)
       .then((res) => {
         setreport(res.data);
-        
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  console.log(report)
-
-const [color,setColor] = useState("gray")
+  console.log(report);
 
   return (
-    <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        
-          {report.map((prop, key) => {
-            return (
-              <TouchableOpacity key={key} onPress={()=>{navigation.navigate("Info", {report_id: prop.report_id,police_id:prop.police_id,report_type:prop.report_type})}} >
-              <View
-                style={[
-                  styles.container,
-                  { backgroundColor: "white", height: 100, borderBottomWidth: 1, borderBottomColor: '#E4DFD9' },
-                ]}
-                
-              >
-                <View
-                  style={{
-                    width: "15%",
-                    justifyContent: "center",
-                    height: 100,
-                    alignItems: "center",
+    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {report.map((prop, key) => {
+          return (
+            <View>
+              {prop.status == "inprocess" ? (
+                <TouchableOpacity
+                  key={key}
+                  onPress={() => {
+                    navigation.navigate("Info", {
+                      report_id: prop.report_id,
+                      police_id: prop.police_id,
+                      report_type: prop.report_type,
+                    });
                   }}
                 >
-                  <Entypo name="text-document" size={50} color="black" />
-                </View>
-                <View
-                  style={{
-                    width: "45%",
-                    justifyContent: "center",
-                    height: 100,
-                  }}
-                >
-                  
-                  <Text>{prop.report_type}</Text>
-                  <Text>{police_station[prop.station]}</Text>
-                </View>
-                <View
-                  style={{
-                    width: "35%",
-                    justifyContent: "center",
-                    height: 100,
-                  }}
-                >
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                    <AntDesign name="calendar" size={20} color="black" />
-                    <Text style={{fontSize: 12}}> {prop.date}</Text>
+                  <View
+                    style={[
+                      styles.container,
+                      {
+                        backgroundColor: "blue",
+                        height: 100,
+                        borderBottomWidth: 1,
+                        borderBottomColor: "#E4DFD9",
+                      },
+                    ]}
+                  >
+                    <View
+                      style={{
+                        width: "15%",
+                        justifyContent: "center",
+                        height: 100,
+                        alignItems: "center",
+                      }}
+                    >
+                      <Entypo name="text-document" size={50} color="black" />
+                    </View>
+                    <View
+                      style={{
+                        width: "45%",
+                        justifyContent: "center",
+                        height: 100,
+                      }}
+                    >
+                      <Text>{prop.report_type}</Text>
+                      <Text>{police_station[prop.station]}</Text>
+                    </View>
+                    <View
+                      style={{
+                        width: "35%",
+                        justifyContent: "center",
+                        height: 100,
+                      }}
+                    >
+                      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                        <AntDesign name="calendar" size={20} color="black" />
+                        <Text style={{ fontSize: 12 }}> {prop.date}</Text>
+                      </View>
+                      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                        <Text> {prop.status}</Text>
+                      </View>
+                    </View>
                   </View>
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  
-                    <Text> {prop.status}</Text>
-                  </View>
+                </TouchableOpacity>
+              ) : (
+                <View>
+                  {prop.status == "pending" ? (
+                    <TouchableOpacity
+                      key={key}
+                      onPress={() => {
+                        navigation.navigate("Info", {
+                          report_id: prop.report_id,
+                          police_id: prop.police_id,
+                          report_type: prop.report_type,
+                        });
+                      }}
+                    >
+                      <View
+                        style={[
+                          styles.container,
+                          {
+                            backgroundColor: "#70747c",
+                            height: 100,
+                            borderBottomWidth: 1,
+                            borderBottomColor: "#E4DFD9",
+                          },
+                        ]}
+                      >
+                        <View
+                          style={{
+                            width: "15%",
+                            justifyContent: "center",
+                            height: 100,
+                            alignItems: "center",
+                          }}
+                        >
+                          <Entypo
+                            name="text-document"
+                            size={50}
+                            color="white"
+                          />
+                        </View>
+                        <View
+                          style={{
+                            width: "45%",
+                            justifyContent: "center",
+                            height: 100,
+                          }}
+                        >
+                          <Text style={{color:'white'}}>{prop.report_type}</Text>
+                          <Text style={{color:'white'}}>{police_station[prop.station]}</Text>
+                        </View>
+                        <View
+                          style={{
+                            width: "35%",
+                            justifyContent: "center",
+                            height: 100,
+                          }}
+                        >
+                          <View
+                            style={{ flexDirection: "row", flexWrap: "wrap" }}
+                          >
+                            <AntDesign
+                              name="calendar"
+                              size={20}
+                              color="white"
+                            />
+                            <Text style={{ fontSize: 12, color: 'white' }}> {prop.date}</Text>
+                          </View>
+                          <View
+                            style={{ flexDirection: "row", flexWrap: "wrap" }}
+                          >
+                            <Text style={{color:'white'}}> {prop.status}</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  ) : (
+                    <View>
+                      <TouchableOpacity
+                        key={key}
+                        onPress={() => {
+                          navigation.navigate("Info", {
+                            report_id: prop.report_id,
+                            police_id: prop.police_id,
+                            report_type: prop.report_type,
+                          });
+                        }}
+                      >
+                        <View
+                          style={[
+                            styles.container,
+                            {
+                              backgroundColor: "#30a444",
+                              height: 100,
+                              borderBottomWidth: 1,
+                              borderBottomColor: "#E4DFD9",
+                            },
+                          ]}
+                        >
+                          <View
+                            style={{
+                              width: "15%",
+                              justifyContent: "center",
+                              height: 100,
+                              alignItems: "center",
+                            }}
+                          >
+                            <Entypo
+                              name="text-document"
+                              size={50}
+                              color="white"
+                            />
+                          </View>
+                          <View
+                            style={{
+                              width: "45%",
+                              justifyContent: "center",
+                              height: 100,
+                            }}
+                          >
+                            <Text style={{color:'white'}}>{prop.report_type}</Text>
+                            <Text style={{color:'white'}}>{police_station[prop.station]}</Text>
+                          </View>
+                          <View
+                            style={{
+                              width: "35%",
+                              justifyContent: "center",
+                              height: 100,
+                            }}
+                          >
+                            <View
+                              style={{ flexDirection: "row", flexWrap: "wrap" }}
+                            >
+                              <AntDesign
+                                name="calendar"
+                                size={20}
+                                color="white"
+                              />
+                              <Text style={{ fontSize: 12, color: 'white' }}> {prop.date}</Text>
+                            </View>
+                            <View
+                              style={{ flexDirection: "row", flexWrap: "wrap" }}
+                            >
+                              <Text style={{color:'white'}}>{prop.status}</Text>
+                            </View>
+                          </View>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  )}
                 </View>
-              </View>
-              </TouchableOpacity>
-            );
-          })}
+              )}
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );

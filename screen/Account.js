@@ -48,7 +48,7 @@ const Account = ({navigation,route}) => {
 
         axios
         //use your ip address type in cmd ipconfig***
-        .post("http://192.168.1.36:3000/account", {
+        .post("http://192.168.1.113:3000/account", {
           id_card: state.username
         })
         .then(async (res) => {
@@ -81,11 +81,11 @@ const Account = ({navigation,route}) => {
    data.append("image", doc)
    data.append("id",state.username)
    axios
-   .post("http://192.168.1.36:3000/addimage/account",data)
+   .post("http://192.168.1.113:3000/addimage/account",data)
    .then( async (res) => {
     axios
     //use your ip address type in cmd ipconfig***
-    .post("http://192.168.1.36:3000/account", {
+    .post("http://192.168.1.113:3000/account", {
       id_card: state.username
     })
     .then(async (res) => {
@@ -111,24 +111,29 @@ const Account = ({navigation,route}) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        {imagenew == null ? <View>
-          <TouchableOpacity onPress={()=>{chooseimage()}}>
-      <Image style={styles.image} source={{uri:image}}></Image>
-      </TouchableOpacity>
-
-        </View>:
-        <View>
-                    <TouchableOpacity onPress={()=>{chooseimage()}}>
-      <Image style={styles.image} source={{uri:"http://192.168.1.36:3000/"+imagenew}}></Image>
-      </TouchableOpacity>
-        </View>
-        }
+        
  
         <View
           style={[
             styles.row,
             { alignItems: "center", justifyContent: "center", paddingTop: 20 },
           ]}>
+            
+
+            <View style={{ flexDirection: "column" }}>
+            {imagenew == null ? <View>
+          <TouchableOpacity onPress={()=>{chooseimage()}}>
+      <Image style={styles.imgProfile} source={{uri:image}}></Image>
+      </TouchableOpacity>
+
+        </View>:
+        <View>
+                    <TouchableOpacity onPress={()=>{chooseimage()}}>
+      <Image style={styles.imgProfile} source={{uri:"http://192.168.1.113:3000/"+imagenew}}></Image>
+      </TouchableOpacity>
+        </View>
+        }
+          </View>
           <View style={{ flexDirection: "column", justifyContent: "center" }}>
             <View style={styles.row}>
           
