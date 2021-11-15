@@ -120,7 +120,7 @@ const Account = ({navigation,route}) => {
           ]}>
             
 
-            <View style={{ flexDirection: "column" }}>
+            <View style={{ flexDirection: "column", paddingRight: 25 }}>
             {imagenew == null ? <View>
           <TouchableOpacity onPress={()=>{chooseimage()}}>
       <Image style={styles.imgProfile} source={{uri:image}}></Image>

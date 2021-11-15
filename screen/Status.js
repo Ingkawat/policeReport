@@ -79,7 +79,7 @@ const Status = ({ navigation }) => {
                     style={[
                       styles.container,
                       {
-                        backgroundColor: "blue",
+                        backgroundColor: "#1597e5",
                         height: 100,
                         borderBottomWidth: 1,
                         borderBottomColor: "#E4DFD9",
@@ -118,7 +118,7 @@ const Status = ({ navigation }) => {
                         <Text style={{ fontSize: 12 }}> {prop.date}</Text>
                       </View>
                       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                        <Text> {prop.status}</Text>
+                        <Text>{prop.status}</Text>
                       </View>
                     </View>
                   </View>
@@ -140,7 +140,6 @@ const Status = ({ navigation }) => {
                         style={[
                           styles.container,
                           {
-                            backgroundColor: "#70747c",
                             height: 100,
                             borderBottomWidth: 1,
                             borderBottomColor: "#E4DFD9",
@@ -158,7 +157,7 @@ const Status = ({ navigation }) => {
                           <Entypo
                             name="text-document"
                             size={50}
-                            color="white"
+                            color="black"
                           />
                         </View>
                         <View
@@ -168,8 +167,8 @@ const Status = ({ navigation }) => {
                             height: 100,
                           }}
                         >
-                          <Text style={{color:'white'}}>{prop.report_type}</Text>
-                          <Text style={{color:'white'}}>{police_station[prop.station]}</Text>
+                          <Text style={{color:'black'}}>{prop.report_type}</Text>
+                          <Text style={{color:'black'}}>{police_station[prop.station]}</Text>
                         </View>
                         <View
                           style={{
@@ -184,14 +183,14 @@ const Status = ({ navigation }) => {
                             <AntDesign
                               name="calendar"
                               size={20}
-                              color="white"
+                              color="black"
                             />
-                            <Text style={{ fontSize: 12, color: 'white' }}> {prop.date}</Text>
+                            <Text style={{ fontSize: 12, color: 'black' }}> {prop.date}</Text>
                           </View>
                           <View
                             style={{ flexDirection: "row", flexWrap: "wrap" }}
                           >
-                            <Text style={{color:'white'}}> {prop.status}</Text>
+                            <Text style={{color:'black'}}> {prop.status}</Text>
                           </View>
                         </View>
                       </View>
@@ -212,7 +211,7 @@ const Status = ({ navigation }) => {
                           style={[
                             styles.container,
                             {
-                              backgroundColor: "#30a444",
+                              backgroundColor: "#9ae66d",
                               height: 100,
                               borderBottomWidth: 1,
                               borderBottomColor: "#E4DFD9",
@@ -230,7 +229,7 @@ const Status = ({ navigation }) => {
                             <Entypo
                               name="text-document"
                               size={50}
-                              color="white"
+                              color="black"
                             />
                           </View>
                           <View
@@ -240,8 +239,8 @@ const Status = ({ navigation }) => {
                               height: 100,
                             }}
                           >
-                            <Text style={{color:'white'}}>{prop.report_type}</Text>
-                            <Text style={{color:'white'}}>{police_station[prop.station]}</Text>
+                            <Text style={{color:'black'}}>{prop.report_type}</Text>
+                            <Text style={{color:'black'}}>{police_station[prop.station]}</Text>
                           </View>
                           <View
                             style={{
@@ -256,14 +255,14 @@ const Status = ({ navigation }) => {
                               <AntDesign
                                 name="calendar"
                                 size={20}
-                                color="white"
+                                color="black"
                               />
-                              <Text style={{ fontSize: 12, color: 'white' }}> {prop.date}</Text>
+                              <Text style={{ fontSize: 12, color: 'black' }}> {prop.date}</Text>
                             </View>
                             <View
                               style={{ flexDirection: "row", flexWrap: "wrap" }}
                             >
-                              <Text style={{color:'white'}}>{prop.status}</Text>
+                              <Text style={{color:'black'}}>{prop.status}</Text>
                             </View>
                           </View>
                         </View>
