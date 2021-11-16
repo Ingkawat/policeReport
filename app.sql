@@ -5,6 +5,7 @@ CREATE TABLE `user` (
   `f_name` varchar(250),
   `l_name` varchar(250),
   `password` varchar(250),
+  `imageuser` varchar(250),
   `phonenumber` varchar(250),
   `email` varchar(250),
   `tokenNotification` varchar(250),
@@ -13,6 +14,13 @@ CREATE TABLE `user` (
   
   PRIMARY KEY (`id_card`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO user(`id_card`, `f_name`, `l_name`, `password`, `role`,`phonenumber`,`email`) VALUES 
+(1111111111111, "user1", "user1", "User_1", 'people', "1234567891","user1@user.use"),
+(2222222222222, "user2", "user2", "user_2", 'people', "1234567891","user2@user.use");
+
+INSERT INTO user(`id_card`, `f_name`, `l_name`, `password`, `role`,`phonenumber`,`email`,`station`) VALUES 
+(7777777777777, "police3", "police3", "Police_1234", 'police', "1234567891","police3@police.use",72);
 
 
 
