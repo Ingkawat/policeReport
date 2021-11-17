@@ -67,11 +67,12 @@ router.post("/report/important", async function (req, res, next) {
     const conn = await pool.getConnection();
     await conn.beginTransaction();
     const missing_type = req.body.missing_type;
+    const description = req.body.description;
     try {
         let result = await conn.query("SELECT MAX(report_id) report_id FROM report")
         await conn.query(
             "INSERT INTO important_miss(id, description, missing_type) VALUES(?, ?, ?);",
-            [result[0][0].report_id, null, missing_type]
+            [result[0][0].report_id, description, missing_type]
         );
         console.log(result[0][0])
         res.send('complete')
@@ -158,7 +159,7 @@ router.post("/report/important", async function (req, res, next) {
   });
   const diskStorage1 = multer({ storage: storage1 });
   router.put("/report/missingpeople", diskStorage1.single("image"), async  (req, res, next) => {
-    console.log(req.file)
+    console.log("req.file")
     const id =  req.body.id;
     const report_type =  req.body.report_type;
     const conn = await pool.getConnection();
@@ -304,6 +305,30 @@ router.post("/report/important", async function (req, res, next) {
       conn.release();
     }
   });
+
+
+
+
+  router.post("/report/missingpaper/detail", async function (req, res, next) {
+    const report_id = req.body.report_id;
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+    try {
+        let result = await conn.query("SELECT * FROM report  JOIN important_miss ON (report.report_id = important_miss.id) join user on (user.id_card = report.userid_card) WHERE report.report_id = ?",[report_id])
+        res.send(result[0])
+        console.log(result[0][0])
+        await conn.commit()
+    } catch (err) {
+      await conn.rollback();
+      return res.status(400).json(err);
+    } finally {
+      console.log("finally");
+      conn.release();
+    }
+  });
+
+
+
 
 
 exports.router = router;
