@@ -115,7 +115,7 @@ const valid = async () =>{
             </View>
             {state2.errorEmail ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state2.errorEmail}</Text>
+           <Text style={{color:"red"}}>{state2.errorEmail}</Text>
           </Animatable.View>: null }
 
 
@@ -127,7 +127,7 @@ const valid = async () =>{
             </View>
             {state2.errorPhonenumber ?
           <Animatable.View animation="fadeInLeft" duration={500}>
-           <Text style={{color:"red",left:-36}}>{state2.errorPhonenumber}</Text>
+           <Text style={{color:"red"}}>{state2.errorPhonenumber}</Text>
           </Animatable.View> :null }
           <View style={{paddingTop: 20}}>
           <Button title="Update" color="green" onPress={() =>  valid()}></Button>
