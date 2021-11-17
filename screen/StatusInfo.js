@@ -60,10 +60,10 @@ const StatusInfo = ({route}) => {
         <View style={{margin: 25}}>
         <View style={{alignItems: 'center', paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5}}>{info.missing_type}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Taker</Text>
           <Image style={{height: 150, width: 150, borderRadius: 25}}source={{uri:"http://192.168.1.113:3000/"+info.imageuser}}/>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.f_name} {info.l_name}</Text>
         </View>
-        <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Taker</Text>
-        <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.f_name} {info.l_name}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Police ID</Text>
         <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.police_id}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Phone</Text>
@@ -82,11 +82,11 @@ const StatusInfo = ({route}) => {
         {info !== null ? 
         <View style={{margin: 25, borderWidth: 1}}>
         <View style={{alignItems: 'center' , paddingBottom: 20}}>
-        <Text style={{fontWeight: 'bold', fontSize: 17.5}}>แจ้งคนหาย</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5}}>แจ้งคนหาย</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Taker</Text>
           <Image style={{height: 150, width: 150, borderRadius: 25}} source={{uri:"http://192.168.1.113:3000/"+info.imageuser}}/>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.f_name} {info.l_name}</Text>
         </View>
-        <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Taker</Text>
-        <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.f_name} {info.l_name}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Police ID</Text>
         <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.police_id}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Phone</Text>
