@@ -68,7 +68,6 @@ const PoliceHome = ({navigation})=>{
             </ListItem>
            ); 
         })}
-        <Button title="logout" onPress={()=>{clearLocal()}}/>
       </ScrollView>
     )
 }
