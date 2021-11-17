@@ -165,7 +165,15 @@ const makecall = (phone) =>{
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].date}</Text>
         </View>
         <View style={{paddingBottom: 10}}/>
-        <Button title="call" onPress={()=>{makecall(report[0].phonenumber)}}/>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          <View style={{height: 40, justifyContent: 'center'}}>
+          <Text>โทรหาผู้แจ้ง - </Text>
+          </View>
+          
+        <TouchableOpacity onPress={()=>{makecall(report[0].phonenumber)}} style={{width: 40, height: 40, backgroundColor: '#9ae66d', borderRadius: 10, justifyContent: 'center', alignItems:'center'}}>
+            <Entypo name="phone" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
         <View style={{paddingBottom: 10}}/>
         <Button title="เบาะแส จากผู้คน" onPress={() => navigation.navigate("Goodpeople",{id:report[0].id})}/>
         <View style={{paddingBottom: 10}}/>
