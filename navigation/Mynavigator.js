@@ -15,7 +15,7 @@ import Location from "../screen/Location"
 import EditProfile  from "../screen/EditProfile";
 import ChangePass from "../screen/ChangePass"
 import Status from "../screen/Status"
-import Admin from "../screen/Admin"
+
 import ReportDocument from "../screen/ReportDocument";
 import PoliceHome from "../screen/PoliceHome";
 import Approve from "../screen/approve";
@@ -24,6 +24,7 @@ import Hint from "../screen/Hint";
 import ReportHint from "../screen/ReportHint";
 import StatusInfo from "../screen/StatusInfo";
 import Goodpeople from "../screen/Goodpeople";
+import { View } from "react-native-animatable";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -36,27 +37,26 @@ const stack = createNativeStackNavigator();
 
   function AccountStack(){
     return (
-      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+
         <stack.Screen name="Account" component={Account}/>
         <stack.Screen name="Location" component={Location} />
         <stack.Screen name="EditProfile" component={EditProfile} />
         <stack.Screen name="ChangePass" component={ChangePass} />
         <stack.Screen name="Status" component={Status} />
         <stack.Screen name="Info" component={StatusInfo}/>
-        <stack.Screen name="PoliceHome" component={PoliceHome} />
       </stack.Navigator>
     )
-  
   }
 
   function ReportStack(){
     return (
-      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
-        <stack.Screen name="Report" component={Report} options={{title: 'แจ้งความ'}}/>
-        <stack.Screen name="ReportDocument" component={ReportDocument} options={{title: 'แจ้งเอกสารหาย'}}/>
-        <stack.Screen name="MissingPeople" component={MissingPeople} options={{title: 'แจ้งคนหาย'}}/>
-        <stack.Screen name="Hint" component={Hint} options={{title: 'แจ้งเบาะแส'}}/>
-        <stack.Screen name="ReportHint" component={ReportHint} options={{title: 'แจ้งเบาะแส'}}/>
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+        <stack.Screen name="Report" component={Report}/>
+        <stack.Screen name="ReportDocument" component={ReportDocument}/>
+        <stack.Screen name="MissingPeople" component={MissingPeople}/>
+        <stack.Screen name="Hint" component={Hint} />
+        <stack.Screen name="ReportHint" component={ReportHint}/>
       </stack.Navigator>
     )
   
@@ -64,8 +64,12 @@ const stack = createNativeStackNavigator();
 
   function PoliceStack(){
     return(
-      <stack.Navigator>
-        <stack.Screen name="Home" component={PoliceHome}/>
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+           <stack.Screen name="Account" component={Account}/>
+          <stack.Screen name="Location" component={Location} />
+          <stack.Screen name="EditProfile" component={EditProfile} />
+          <stack.Screen name="ChangePass" component={ChangePass} />
+        <stack.Screen name="PoliceHome" component={PoliceHome}/>
         <stack.Screen name="Approve" component={Approve}/>
         <stack.Screen name="Goodpeople" component={Goodpeople}/>
       </stack.Navigator>
@@ -84,20 +88,8 @@ const stack = createNativeStackNavigator();
                 <LoginNavigator.Screen name="RegisterScreen" component={Register}/>
             </LoginNavigator.Navigator>
             
-        ): state.role == "police"? (
+        ):(
           <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
-            <Tab.Screen name = "Police" component={PoliceStack}
-                    options={{
-                      headerShown: false,
-                    tabBarLabel: 'Police',
-                    tabBarIcon: ({ color, size }) => (
-                      <Octicons name="report" color={color} size={size} />
-                    ),
-                    }}/>
-          </Tab.Navigator>
-        
-        ): state.role == "people"? (
-          <Tab.Navigator screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
             <Tab.Screen name = "ReportStack" component={ReportStack}
                     options={{
                       headerShown: false,
@@ -113,17 +105,27 @@ const stack = createNativeStackNavigator();
                       <MaterialCommunityIcons name="bell" color={color} size={size} />
                     ),
                   }}/>
-            <Tab.Screen name = "AccountStack" component={AccountStack}
-                    options={{
-                      headerShown: false,
-                    tabBarLabel: 'Account',
-                    tabBarIcon: ({ color, size }) => (
-                      <MaterialCommunityIcons name="account" color={color} size={size} />
-                    ),
-                  }}/>
+                  {state.role == "people" ?
+                              <Tab.Screen name = "AccountStack" component={AccountStack}
+                              options={{
+                                headerShown: false,
+                              tabBarLabel: 'Account',
+                              tabBarIcon: ({ color, size }) => (
+                                <MaterialCommunityIcons name="account" color={color} size={size} />
+                              ),
+                            }}/>:            <Tab.Screen name = "AccountStack" component={PoliceStack}
+                            options={{
+                              headerShown: false,
+                            tabBarLabel: 'Account',
+                            tabBarIcon: ({ color, size }) => (
+                              <MaterialCommunityIcons name="account" color={color} size={size} />
+                            ),
+                          }}/>
+                  }
+
           </Tab.Navigator>
         
-        ): null
+        )
         }
       
     </NavigationContainer>
