@@ -27,7 +27,7 @@ const PoliceHome = ({navigation})=>{
     const updateToken = (token, id) =>{
       axios
       //use your ip address type in cmd ipconfig***
-      .post(`http://192.168.1.36:3000/updateToken/${token}/${id}`)
+      .post(`http://192.168.1.113:3000/updateToken/${token}/${id}`)
       .then( async (res) => {
         console.log("update Token")
       })
@@ -42,7 +42,7 @@ const PoliceHome = ({navigation})=>{
       registerForPushNotificationsAsync().then(token=>updateToken(token, state.username)).catch(err=>console.log(err))
           axios
             //use your ip address type in cmd ipconfig***
-            .post(`http://192.168.1.36:3000/report/police/${state.username}`)
+            .post(`http://192.168.1.113:3000/report/police/${state.username}`)
             .then((res) =>{
                 setReport(res.data)
             })
@@ -59,11 +59,10 @@ const PoliceHome = ({navigation})=>{
         <ScrollView>
         {report.map((item, i) => {
           return ( 
-            <ListItem key={i} onPress={()=>navigation.navigate("Approve", {report_id: item.report_id, user_id: item.userid_card, police_id: state.username,report_type:item.report_type})}>
+            <ListItem style={{borderBottomWidth: 1, borderColor: '#E4DFD9'}} key={i} onPress={()=>navigation.navigate("Approve", {report_id: item.report_id, user_id: item.userid_card, police_id: state.username,report_type:item.report_type})}>
               <ListItem.Content>
                 <ListItem.Title>{item.report_type}</ListItem.Title>
                 <ListItem.Subtitle>{item.status}</ListItem.Subtitle>
-                <ListItem.Subtitle>test</ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>
