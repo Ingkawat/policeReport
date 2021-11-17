@@ -43,7 +43,7 @@ const stack = createNativeStackNavigator();
         <stack.Screen name="ChangePass" component={ChangePass} />
         <stack.Screen name="Status" component={Status} />
         <stack.Screen name="Info" component={StatusInfo}/>
-        <stack.Screen name="Admin" component={Admin} />
+        <stack.Screen name="PoliceHome" component={PoliceHome} />
       </stack.Navigator>
     )
   
@@ -52,11 +52,11 @@ const stack = createNativeStackNavigator();
   function ReportStack(){
     return (
       <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#66806a" },headerTintColor: "white"}}>
-        <stack.Screen name="Report" component={Report}/>
-        <stack.Screen name="ReportDocument" component={ReportDocument}/>
-        <stack.Screen name="MissingPeople" component={MissingPeople}/>
-        <stack.Screen name="Hint" component={Hint} />
-        <stack.Screen name="ReportHint" component={ReportHint}/>
+        <stack.Screen name="Report" component={Report} options={{title: 'แจ้งความ'}}/>
+        <stack.Screen name="ReportDocument" component={ReportDocument} options={{title: 'แจ้งเอกสารหาย'}}/>
+        <stack.Screen name="MissingPeople" component={MissingPeople} options={{title: 'แจ้งคนหาย'}}/>
+        <stack.Screen name="Hint" component={Hint} options={{title: 'แจ้งเบาะแส'}}/>
+        <stack.Screen name="ReportHint" component={ReportHint} options={{title: 'แจ้งเบาะแส'}}/>
       </stack.Navigator>
     )
   
