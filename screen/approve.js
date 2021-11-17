@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { View,  Text, Button, Image,Linking, ScrollView, TouchableOpacity} from "react-native";
+import { View,  Text, Button, Image,Linking, ScrollView} from "react-native";
 import * as DocumentPicker from 'expo-document-picker';
 
 import axios from "axios";
 import { Platform } from "expo-modules-core";
-import { Entypo } from '@expo/vector-icons'; 
+
 
 
 const Approve = ({route, navigation}) => {
@@ -29,21 +29,34 @@ const makecall = (phone) =>{
     
       if(report_type == "เอกสารหาย"){
       await axios
-          .post(`http://192.168.1.113:3000/report/pending/${report_id}/${police_id}`)
-          .then((res) => {
+          .post(`http://192.168.1.36:3000/report/pending/${report_id}/${police_id}`)
+          .then( async(res) => {
+ 
             console.log(res.data);
+             await axios
+            .post(`http://192.168.1.36:3000/report/missingpaper/detail`,{
+              report_id:report_id 
+            })
+            .then(async(res) => {
+               setReport(res.data)   
+               console.log(report)       
+            })
+            .catch((err) => {
+              console.log(err);
+            });
             //
           })
           .catch((err) => {
             console.log(err);
           });
+   
         }
         else if (report_type == "แจ้งคนหาย"){
           await axios
-          .post(`http://192.168.1.113:3000/report/pending/${report_id}/${police_id}`)
+          .post(`http://192.168.1.36:3000/report/pending/${report_id}/${police_id}`)
           .then(async (res) => {
             await axios
-            .put(`http://192.168.1.113:3000/report/missingpeople/detail`,{
+            .put(`http://192.168.1.36:3000/report/missingpeople/detail`,{
               report_id:report_id 
             })
             .then(async(res) => {
@@ -59,10 +72,9 @@ const makecall = (phone) =>{
         }
     },[])
 
-
     const Approve = async (report_id) =>{
       await axios
-      .post(`http://192.168.1.113:3000/report/pending/status/success`,{
+      .post(`http://192.168.1.36:3000/report/pending/status/success`,{
         report_id:report_id
       })
       .then((res) => {
@@ -85,7 +97,7 @@ const makecall = (phone) =>{
         data.append("id", report_id)
         data.append("image", doc)
         await axios
-          .post("http://192.168.1.113:3000/users", data)
+          .post("http://192.168.1.36:3000/users", data)
           .then((res) => {
             console.log(res.data);
           })
@@ -96,11 +108,34 @@ const makecall = (phone) =>{
     }
     return(
     <View style={{backgroundColor: 'white', height:'100%'}}>
-    {report_type == "เอกสารหาย" ? 
-    <View style={{ margin: 25}}>
-      <Button title="select file" onPress={() => pickDocument()}/>
-      <View style={{paddingBottom: 10}}/>
-      <Button title="Approve!!!" onPress={() => navigation.popToTop()}/>
+    {report_type == "เอกสารหาย" ?    
+    <View >
+       {report != null ? 
+     <View style={{ margin: 25}}>
+       <Text style={{fontWeight: 'bold', fontSize: 17.5}}>เอกสารหาย</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้หาย</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>description</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].description}</Text>
+
+
+
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้แจ้ง</Text>
+          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].f_name} {report[0].l_name}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{user_id}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Email</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].email}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>เวลาที่แจ้ง</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].date}</Text>
+
+          <Button title="select file" onPress={() => pickDocument()}/>
+        <View style={{paddingBottom: 10}}/>
+        <Button title="Approve!!!" onPress={() => {Approve(report_id),navigation.popToTop()}}/>
+     </View>
+        :<Text>loading ...</Text>
+       }
+     
     </View>
     :
     <ScrollView>
@@ -109,7 +144,7 @@ const makecall = (phone) =>{
         <View style={{alignItems: 'center' , paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5}}>แจ้งคนหาย</Text>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้หาย</Text>
-          <Image source={{uri:"http://192.168.1.113:3000/"+report[0].image_people}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].image_people}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].missing_name}</Text>
         </View>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
@@ -119,7 +154,7 @@ const makecall = (phone) =>{
         <View>
           <View style={{alignItems: 'center' , paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้แจ้ง</Text>
-          <Image source={{uri:"http://192.168.1.113:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].f_name} {report[0].l_name}</Text>
         </View>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
@@ -130,16 +165,7 @@ const makecall = (phone) =>{
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].date}</Text>
         </View>
         <View style={{paddingBottom: 10}}/>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <View style={{height: 40, justifyContent: 'center'}}>
-          <Text>โทรหาผู้แจ้ง - </Text>
-          </View>
-          
-          <TouchableOpacity onPress={()=>{makecall(report[0].phonenumber)}} style={{width: 40, height: 40, backgroundColor: '#9ae66d', borderRadius: 10, justifyContent: 'center', alignItems:'center'}}>
-            <Entypo name="phone" size={30} color="white" />
-          </TouchableOpacity>
-          
-        </View>
+        <Button title="call" onPress={()=>{makecall(report[0].phonenumber)}}/>
         <View style={{paddingBottom: 10}}/>
         <Button title="เบาะแส จากผู้คน" onPress={() => navigation.navigate("Goodpeople",{id:report[0].id})}/>
         <View style={{paddingBottom: 10}}/>

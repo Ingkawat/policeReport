@@ -6,6 +6,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Button,
+  TextInput,
+  Modal,
+  Pressable
 } from "react-native";
 import axios from "axios";
 import {
@@ -33,7 +36,8 @@ const sendPushNotification = () => {
   });
 };
 
-const addReport = (idcard, station, lostPaper) => {
+const addReport = (idcard, station, lostPaper,description) => {
+  
   var date = new Date().getDate();
   var month = new Date().getMonth() + 1;
   var year = new Date().getFullYear();
@@ -57,15 +61,19 @@ const addReport = (idcard, station, lostPaper) => {
 
   axios
     //use your ip address type in cmd ipconfig***
-    .post(`http://192.168.1.113:3000/report/important/${idcard}`, {
+    .post(`http://192.168.1.36:3000/report/important/${idcard}`, {
       report_type: "เอกสารหาย",
       station: station,
       date: datetext,
+
+
+
     })
     .then(async (res) => {
       axios
-        .post("http://192.168.1.113:3000/report/important", {
+        .post("http://192.168.1.36:3000/report/important", {
           missing_type: lostPaper,
+          description: description
         })
         .then(async (res) => {
           sendPushNotification();
@@ -80,8 +88,10 @@ const addReport = (idcard, station, lostPaper) => {
 };
 
 function ReportDocument() {
+  const [modalVisible, setModalVisible] = useState(false);
   const { state } = useContext(AuthContext);
   const [selectStation, setselectStation] = useState();
+  const [description, setdescription] = useState();
   const [selectlostPaper, setSelectlostPaper] = useState();
   const police_station = ["-"];
   for (let i = 0; i < policeData.features.length; i++) {
@@ -137,15 +147,56 @@ function ReportDocument() {
         </View>
         <View style={{paddingBottom: 10}}/>
         <Text>รายละเอียดเพิ่มเติม</Text>
+        <TextInput onChangeText={(value)=>setdescription(value)}></TextInput>
         <View style={{paddingBottom: 10}}/>
         <Button
           title="แจ้งความ"
-          onPress={() => {
-            addReport(state.username, selectStation, selectlostPaper);
+          onPress={() => {setModalVisible(!modalVisible)
+           
           }}
         />
+ 
+      </View>
+      <View style={styles.centeredView}>
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {      
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>ต้องการแจ้งความ</Text>
+           
+              <View style={styles.row}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => {addReport(state.username, selectStation, selectlostPaper,description),setModalVisible(!modalVisible)}}
+                >
+                  <Text style={styles.textStyle}>ยอมรับ</Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    styles.button,
+                    styles.buttonClose,
+                    { backgroundColor: "red" },
+                  ]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>ยกเลิก</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+  
       </View>
     </View>
+    
   );
 }
 
@@ -158,6 +209,59 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  buttonReport: {
+    backgroundColor: "white",
+    height: 110,
+    width: 110,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    margin: 10,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default ReportDocument;
+
+
+
+

@@ -45,7 +45,7 @@ const registerForPushNotificationsAsync = async () => {
 const updateToken = (token, id) => {
   axios
     //use your ip address type in cmd ipconfig***
-    .post(`http://192.168.1.113:3000/updateToken/${token}/${id}`)
+    .post(`http://192.168.1.36:3000/updateToken/${token}/${id}`)
     .then(async (res) => {
       console.log("update Token");
     })
@@ -87,6 +87,8 @@ const Report = ({ navigation }) => {
 
   return (
     <ScrollView style={{backgroundColor: '#483434'}}>
+      <View >
+      {state.role == "people" ?
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.buttonReport}
@@ -109,6 +111,9 @@ const Report = ({ navigation }) => {
           <AntDesign name="message1" size={35} color="black" />
           <Text>แจ้งเบาะแส</Text>
         </TouchableOpacity>
+        </View>
+        :null
+      }
 
         {arr.map((name, key) => {
           return (
@@ -134,51 +139,12 @@ const Report = ({ navigation }) => {
                   
                 </ImageBackground>
                 </View>
-                
 
-                {/* <ImageBackground source={{uri:name.urlToImage}} style={{width: '100%', height: 250, justifyContent: 'flex-end', margin: 10}}>
-            <Text style={{fontSize: 20, paddingLeft: 20, color: 'white'}}>{name.title}</Text>
-          </ImageBackground> */}
               </TouchableOpacity>
           );
         })}
 
-        <View style={styles.centeredView}>
-          {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <CheckBox checked={true} />
-              <View style={styles.row}>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible),() => navigation.navigate("ReportDocument")}
-                >
-                  <Text style={styles.textStyle}>ยอมรับ</Text>
-                </Pressable>
-                <Pressable
-                  style={[
-                    styles.button,
-                    styles.buttonClose,
-                    { backgroundColor: "red" },
-                  ]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>ยกเลิก</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal> */}
-        </View>
+
       </View>
     </ScrollView>
   );

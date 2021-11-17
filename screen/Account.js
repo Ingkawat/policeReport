@@ -48,7 +48,7 @@ const Account = ({navigation,route}) => {
 
         axios
         //use your ip address type in cmd ipconfig***
-        .post("http://192.168.1.113:3000/account", {
+        .post("http://192.168.1.36:3000/account", {
           id_card: state.username
         })
         .then(async (res) => {
@@ -81,11 +81,11 @@ const Account = ({navigation,route}) => {
    data.append("image", doc)
    data.append("id",state.username)
    axios
-   .post("http://192.168.1.113:3000/addimage/account",data)
+   .post("http://192.168.1.36:3000/addimage/account",data)
    .then( async (res) => {
     axios
     //use your ip address type in cmd ipconfig***
-    .post("http://192.168.1.113:3000/account", {
+    .post("http://192.168.1.36:3000/account", {
       id_card: state.username
     })
     .then(async (res) => {
@@ -129,7 +129,7 @@ const Account = ({navigation,route}) => {
         </View>:
         <View>
                     <TouchableOpacity onPress={()=>{chooseimage()}}>
-      <Image style={styles.imgProfile} source={{uri:"http://192.168.1.113:3000/"+imagenew}}></Image>
+      <Image style={styles.imgProfile} source={{uri:"http://192.168.1.36:3000/"+imagenew}}></Image>
       </TouchableOpacity>
         </View>
         }
@@ -164,6 +164,7 @@ const Account = ({navigation,route}) => {
 
         </View>
         <View style={{ alignItems: "center", paddingTop: 30 }}>
+        {state.role == "people" ?
           <View
             style={{
               borderColor: "white",
@@ -173,6 +174,7 @@ const Account = ({navigation,route}) => {
               alignItems: "flex-start",
             }}
           >
+        
             <TouchableOpacity
               style={{
                 height: 35,
@@ -184,7 +186,10 @@ const Account = ({navigation,route}) => {
                 <Entypo name="location" size={15} color="black" /> Status
               </Text>
             </TouchableOpacity>
+       
           </View>
+          :null
+               }
           <View
             style={{
               borderColor: "white",
@@ -234,6 +239,7 @@ const Account = ({navigation,route}) => {
               </Text>
             </TouchableOpacity>
           </View>
+          {state.role == "police" ?
           <View
             style={{
               borderColor: "white",
@@ -244,18 +250,22 @@ const Account = ({navigation,route}) => {
               marginTop: 10,
             }}
           >
+  
             <TouchableOpacity
               style={{
                 height: 35,
                 width: "100%",
               }}
-              onPress={() => navigation.navigate("Admin")}
+              onPress={() => navigation.navigate("PoliceHome")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
-                <Entypo name="help" size={15} color="black" /> Admin
+                <Entypo name="help" size={15} color="black" /> PoliceHome
               </Text>
             </TouchableOpacity>
+           
           </View>
+          :null
+        }
           <TouchableOpacity
             onPress={() => {
               
