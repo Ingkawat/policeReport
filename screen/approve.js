@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import { View,  Text, Button, Image,Linking, ScrollView} from "react-native";
+import { View,  Text, Button, Image,Linking, ScrollView, TouchableOpacity} from "react-native";
 import * as DocumentPicker from 'expo-document-picker';
-
+import { Entypo } from '@expo/vector-icons';
 import axios from "axios";
 import { Platform } from "expo-modules-core";
 
