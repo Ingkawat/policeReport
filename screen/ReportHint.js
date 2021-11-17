@@ -28,7 +28,7 @@ const ReportHint = ({navigation,route}) => {
     const [report, setReport] = useState("")
    const confirmreporthint = () =>{
     axios
-    .put("http://192.168.1.36:3000/report/reporthint",{
+    .put("http://192.168.1.113:3000/report/reporthint",{
         report:report,
         id:id,
         idcard:state.username
@@ -41,14 +41,17 @@ const ReportHint = ({navigation,route}) => {
     });
    }
 return(
-    <View style={{ width: "80%" }}>
-    <Text style={{ marginTop: 10 }}>แจ้งเบาะแส</Text>
-    <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
-      <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
-        <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} placeholder="แจ้งเบาะแส" onChangeText={(value) => {setReport(value)}}/>
+    <View style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}>
+      <View style={{margin: 20}}>
+      <Text style={{ marginTop: 10 }}>แจ้งเบาะแส</Text>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', borderWidth: 1,borderColor: '#e1e1e1', borderRadius: 10}}>
+        <View style={{flexDirection: 'column', flexWrap: 'wrap', width:'90%'}}>
+          <TextInput style={{height: 35, width: '100%', paddingLeft: 10}} placeholder="แจ้งเบาะแส" onChangeText={(value) => {setReport(value)}}/>
+        </View>
       </View>
+      <View style={{paddingBottom: 10}}/>
+        <Button title="ยืนยันการแจ้งเบาะแส" onPress={()=>{confirmreporthint()}}></Button>
       </View>
-      <Button title="ยืนยันการแจ้งเบาะแส" onPress={()=>{confirmreporthint()}}></Button>
     </View>
 )
 

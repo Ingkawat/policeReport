@@ -30,7 +30,7 @@ const Hint = ({navigation}) => {
     useEffect(() => {
         axios
             //use your ip address type in cmd ipconfig***
-            .post("http://192.168.1.36:3000/hint", {
+            .post("http://192.168.1.113:3000/hint", {
                 report_type: "แจ้งคนหาย",
                 status: "inprocess"
               })
@@ -48,29 +48,26 @@ const Hint = ({navigation}) => {
      
       
     return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
       <ScrollView>
-        <View style={{paddingTop: 10}}>
+        <View style={{borderBottomWidth: 1, borderBottomColor: "#E4DFD9"}}>
         {report.map((prop, key) => {
          return (
           <TouchableOpacity onPress={()=> navigation.navigate("ReportHint",{id:report[key].id})}>
-          <View style={[styles.container, { backgroundColor: "white", height: 100 }]} key={key}>
-          <View style={{ width: "20%", justifyContent: 'center', height: 100, alignItems:'center' }}>
-            <Image source={{uri: "http://192.168.1.36:3000/"+prop.image_people}} style={{ width: 100, height: 100 }}/>
-          </View>
-          <View style={{ width: "10%", justifyContent: 'center', height: 100 }}>
-            <Text>{prop.missing_name}</Text>
-          </View>
-          <View style={{ width: "40%", justifyContent: 'center', height: 100 }}>
-            <Text>{prop.missing_des}</Text>
-          </View>
-          <View style={{ width: "30%", justifyContent: 'center', height: 100 }}>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              <AntDesign name="calendar" size={20} color="black" />
-              <Text> {prop.date}</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', margin: 5}} key={key}>
+            <View style={{flexDirection: 'column', width: '25%', height: 100, justifyContent: 'center'}}>
+              <Image source={{uri: "http://192.168.1.113:3000/"+prop.image_people}} style={{ width: '90%', height: '90%', borderRadius: 10 }}/>
+            </View>
+            <View style={{flexDirection: 'column', width: '45%', justifyContent: 'center'}}>
+              <Text style={{fontWeight: 'bold'}}>{prop.missing_name}</Text>
+              <Text>{prop.missing_des}</Text>
+            </View>
+            <View style={{flexDirection: 'column', width: '30%', justifyContent: 'center', alignItems: 'center'}}>
+              <AntDesign name="calendar" size={15} color="black" />
+              <Text style={{fontSize: 11}}>{prop.date}</Text>
             </View>
           </View>
-        </View>
+
         </TouchableOpacity>
          );
       })}
