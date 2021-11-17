@@ -65,7 +65,7 @@ const ChangePass = () => {
           
         {state2.errorPassword ? 
           <Animatable.View animation="fadeInLeft" duration={500} style={{flexWrap:"nowrap"}}>
-           <Text style={{color:"red",left:25, }}>{state2.errorPassword}</Text>
+           <Text style={{color:"red" }}>{state2.errorPassword}</Text>
           </Animatable.View>: null} 
 
             <Text style={{marginTop: 10}}>Confirm New Password</Text>
