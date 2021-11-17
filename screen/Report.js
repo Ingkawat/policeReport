@@ -87,7 +87,7 @@ const Report = ({ navigation }) => {
 
   return (
     <ScrollView style={{backgroundColor: '#483434'}}>
-      <View >
+      <View>
       {state.role == "people" ?
       <View style={styles.container}>
         <TouchableOpacity
@@ -119,25 +119,24 @@ const Report = ({ navigation }) => {
           return (
               <TouchableOpacity
                 style={{
-                  height: 110,
-                  width: "90%",
-                  margin: 10,
+                  alignItems: 'center',
+                  paddingBottom: 30
                 }}
                 onPress={() => {
                   Linking.openURL(name.url);
                 }}
               >
-                <View style={{backgroundColor: 'white', width:'100%', borderRadius: 15, alignItems: 'center'}}>
+                <View style={{backgroundColor: 'white', width: '90%', borderRadius: 15, height: 100}}>
                 <ImageBackground
-                  source={{ uri: name.urlToImage }}
-                  style={{ width: "100%", height: 110, alignItems: 'center', justifyContent: 'flex-end'}}
-                  imageStyle={{borderRadius: 15}}
-                >
+                    source={{ uri: name.urlToImage }}
+                    style={{ width: "100%", height: 110, alignItems: 'center', justifyContent: 'flex-end'}}
+                    imageStyle={{borderRadius: 15}}
+                  >
                   <View style={{backgroundColor: 'white', width: '100%', }}>
-                  <Text style={{fontSize: 12.5, color: 'red'}}>{name.title}</Text>
+                    <Text style={{fontSize: 12.5, color: 'red'}}>{name.title}</Text>
                   </View>
                   
-                </ImageBackground>
+                  </ImageBackground>
                 </View>
 
               </TouchableOpacity>
@@ -158,47 +157,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
   },
   buttonReport: {
     backgroundColor: "white",
