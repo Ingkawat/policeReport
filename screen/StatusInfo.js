@@ -80,7 +80,7 @@ const StatusInfo = ({route}) => {
         :
       <View>
         {info !== null ? 
-        <View style={{margin: 25, borderWidth: 1}}>
+        <View style={{margin: 25}}>
         <View style={{alignItems: 'center' , paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5}}>แจ้งคนหาย</Text>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Taker</Text>
