@@ -240,6 +240,53 @@ const Account = ({navigation,route}) => {
             </TouchableOpacity>
           </View>
           {state.role == "police" ?
+          <View >
+           <View
+           style={{
+            borderColor: "white",
+            borderBottomWidth: 1,
+            height: 35,
+            width: "80%",
+            alignItems: "flex-start",
+            marginTop: 10,
+          }}
+         >
+ 
+           <TouchableOpacity
+             style={{
+               height: 35,
+               width: "100%",
+             }}
+             onPress={() => navigation.navigate("reportpolice")}
+           >
+             <Text style={{ fontSize: 15, color: "grey" }}>
+               <Entypo name="help" size={15} color="black" /> Reportpolice
+             </Text>
+           </TouchableOpacity>
+          
+         </View>
+         <View
+            style={{
+              borderColor: "white",
+              borderBottomWidth: 1,
+              height: 35,
+              width: "80%",
+              alignItems: "flex-start",
+              marginTop: 10,
+            }}
+          >
+                  <TouchableOpacity
+              style={{
+                height: 35,
+                width: "100%",
+              }}
+              onPress={() => navigation.navigate("statuspolice")}
+            >
+              <Text style={{ fontSize: 15, color: "grey" }}>
+                <Entypo name="help" size={15} color="black" />   Statuspolice
+              </Text>
+            </TouchableOpacity>
+            </View>
           <View
             style={{
               borderColor: "white",
@@ -250,7 +297,8 @@ const Account = ({navigation,route}) => {
               marginTop: 10,
             }}
           >
-  
+          
+
             <TouchableOpacity
               style={{
                 height: 35,
@@ -263,6 +311,7 @@ const Account = ({navigation,route}) => {
               </Text>
             </TouchableOpacity>
            
+          </View>
           </View>
           :null
         }
