@@ -9,7 +9,7 @@ import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import Login from "../screen/Login";
 import Register from "../screen/Register";
 import Report from "../screen/Report";
-import Notifications from "../screen/Notifications";
+import Peoplereport from "../screen/Peoplereport";
 import Account from "../screen/Account";
 import Location from "../screen/Location"
 import EditProfile  from "../screen/EditProfile";
@@ -25,6 +25,10 @@ import ReportHint from "../screen/ReportHint";
 import StatusInfo from "../screen/StatusInfo";
 import Goodpeople from "../screen/Goodpeople";
 import { View } from "react-native-animatable";
+import reportpolice from "../screen/reportpolice";
+import statuspolice from "../screen/statuspolice";
+import PeoplereportDetail from "../screen/PeoplereportDetail";
+import statuspoliceinfo from "../screen/statuspoliceinfo";
 
 const Tab = createBottomTabNavigator();
 const LoginNavigator = createNativeStackNavigator();
@@ -69,13 +73,27 @@ const stack = createNativeStackNavigator();
           <stack.Screen name="Location" component={Location} />
           <stack.Screen name="EditProfile" component={EditProfile} />
           <stack.Screen name="ChangePass" component={ChangePass} />
+          <stack.Screen name="reportpolice" component={reportpolice}/>
+          <stack.Screen name="statuspolice" component={statuspolice}/>
+          <stack.Screen name="statuspoliceinfo" component={statuspoliceinfo}/>
+          
         <stack.Screen name="PoliceHome" component={PoliceHome}/>
         <stack.Screen name="Approve" component={Approve}/>
         <stack.Screen name="Goodpeople" component={Goodpeople}/>
       </stack.Navigator>
     )
   }
-  console.log(state.role)
+
+  function peoplereport1(){
+    return(
+      <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
+
+        <stack.Screen name="Peoplereport" component={Peoplereport}/>
+        <stack.Screen name="PeoplereportDetail" component={PeoplereportDetail}/>
+      </stack.Navigator>
+    )
+  }
+
   
   
   return (
@@ -98,13 +116,14 @@ const stack = createNativeStackNavigator();
                       <Octicons name="report" color={color} size={size} />
                     ),
                   }}/>
-            <Tab.Screen name = "Notifications" component={Notifications}
-                    options={{
-                    tabBarLabel: 'Notifications',
-                    tabBarIcon: ({ color, size }) => (
-                      <MaterialCommunityIcons name="bell" color={color} size={size} />
-                    ),
-                  }}/>
+             <Tab.Screen name = "peoplereport1" component={peoplereport1}
+                  options={{
+                    headerShown:false,
+                  tabBarLabel: 'Peoplereport',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="bell" color={color} size={size} />
+                  ),
+                }}/>
                   {state.role == "people" ?
                               <Tab.Screen name = "AccountStack" component={AccountStack}
                               options={{
