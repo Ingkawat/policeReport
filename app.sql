@@ -88,6 +88,33 @@ CREATE TABLE `good_people` (
 
 
 
+
+DROP TABLE IF EXISTS `reportofpolice`;
+CREATE TABLE `reportofpolice` (
+  `id` int(10) AUTO_INCREMENT,
+  `policeid_card`  varchar(14) ,
+  `date` varchar(250),
+  `status` ENUM('questtofind','success')DEFAULT 'questtofind' ,
+  `imagetofind` varchar(250),
+  `dataofpolice` varchar(250),
+  `station` int(10),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`policeid_card`)   REFERENCES `user` (`id_card`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `peoplereport`;
+CREATE TABLE `peoplereport` (
+  `id` int(10) AUTO_INCREMENT,
+  `peoplereport_id`  int(10),
+  `date` varchar(250),
+  `imagetopeople` varchar(250),
+  `dataofpeople` varchar(250),
+  `useeid` varchar(250),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`peoplereport_id`) 
+  REFERENCES `reportofpolice`(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO police_station(`name`) VALUES
 ("สถานีตำรวจนครบาลโคกคราม"),
 ("สถานีตำรวจนครบาลมีนบุรี"),
