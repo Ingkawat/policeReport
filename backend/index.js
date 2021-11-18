@@ -18,6 +18,10 @@ const report2Router = require('./routes/report2')
 app.use(report2Router.router)
 
 
+const reportpolice = require('./routes/reportpolice')
+app.use(reportpolice.router)
+
+
 app.listen(3000, () => {
     console.log(`Example app listening at http://localhost:3000`)
   
