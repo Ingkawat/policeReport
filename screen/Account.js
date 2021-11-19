@@ -22,6 +22,8 @@ import * as ImagePicker from 'expo-image-picker';
 import {
   Entypo,
   MaterialCommunityIcons,
+  Octicons,
+  Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
 
@@ -183,7 +185,7 @@ const Account = ({navigation,route}) => {
               onPress={() => navigation.navigate("Status")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
-                <Entypo name="location" size={15} color="black" /> Status
+              <MaterialIcons name="pending" size={15} color="black" /> Status
               </Text>
             </TouchableOpacity>
        
@@ -240,7 +242,7 @@ const Account = ({navigation,route}) => {
             </TouchableOpacity>
           </View>
           {state.role == "police" ?
-          <View >
+          <View style={{width: '80%'}}>
            <View
            style={{
             borderColor: "white",
@@ -260,7 +262,7 @@ const Account = ({navigation,route}) => {
              onPress={() => navigation.navigate("reportpolice")}
            >
              <Text style={{ fontSize: 15, color: "grey" }}>
-               <Entypo name="help" size={15} color="black" /> Reportpolice
+             <Octicons name="report" size={15} color="black" /> Report Police
              </Text>
            </TouchableOpacity>
           
@@ -283,7 +285,7 @@ const Account = ({navigation,route}) => {
               onPress={() => navigation.navigate("statuspolice")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
-                <Entypo name="help" size={15} color="black" />   Statuspolice
+              <MaterialIcons name="pending" size={15} color="black" /> Status Police
               </Text>
             </TouchableOpacity>
             </View>
@@ -307,7 +309,7 @@ const Account = ({navigation,route}) => {
               onPress={() => navigation.navigate("PoliceHome")}
             >
               <Text style={{ fontSize: 15, color: "grey" }}>
-                <Entypo name="help" size={15} color="black" /> PoliceHome
+              <Ionicons name="home-outline" size={15} color="black" /> Police Home
               </Text>
             </TouchableOpacity>
            
