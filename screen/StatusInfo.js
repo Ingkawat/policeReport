@@ -94,7 +94,7 @@ const StatusInfo = ({route}) => {
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Email</Text>
         <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.email}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Details</Text>
-        {info.des === null ? <Text style={{fontWeight: 'bold', fontSize: 15}}>-</Text> : <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.des}</Text>}
+        {info.missing_des === '' ? <Text style={{fontWeight: 'bold', fontSize: 15}}>-</Text> : <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.missing_des}</Text>}
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Status</Text>
         {info.status === 'success' ? <Text style={{fontWeight: 'bold', fontSize: 15, color: '#157347'}}>{info.status}</Text> : info.status === 'inprocess' ? <Text style={{fontWeight: 'bold', fontSize: 15, color: '#0d6efd'}}>{info.status}</Text> : <Text style={{fontWeight: 'bold', fontSize: 15, color: '#ffc823'}}>{info.status}</Text>}
       </View>
