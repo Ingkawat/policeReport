@@ -27,7 +27,7 @@ function Peoplereport({navigation}) {
   useEffect(() => {
     axios
         //use your ip address type in cmd ipconfig***
-        .post("http://192.168.1.36:3000/peoplereport" )
+        .post("http://192.168.1.113:3000/peoplereport" )
         .then((res) =>{
           setreport(res.data)
           console.log(res.data)
@@ -52,7 +52,7 @@ function Peoplereport({navigation}) {
           <TouchableOpacity onPress={()=> navigation.navigate("PeoplereportDetail",{id:report[key].id})}>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', margin: 5}} key={key}>
             <View style={{flexDirection: 'column', width: '25%', height: 100, justifyContent: 'center'}}>
-              <Image source={{uri: "http://192.168.1.36:3000/"+prop.imagetofind}} style={{ width: '90%', height: '90%', borderRadius: 10 }}/>
+              <Image source={{uri: "http://192.168.1.113:3000/"+prop.imagetofind}} style={{ width: '90%', height: '90%', borderRadius: 10 }}/>
             </View>
             <View style={{flexDirection: 'column', width: '45%', justifyContent: 'center'}}>
               <Text style={{fontWeight: 'bold'}}>{prop.name}</Text>
