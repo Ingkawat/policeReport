@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, StyleSheet, Image,ScrollView} from "react-native";
+import { View, Text, StyleSheet, Image,ScrollView, TouchableOpacity} from "react-native";
 import axios from "axios";
 import { render } from "react-dom";
 import { ListItem } from "react-native-elements";
@@ -13,22 +13,23 @@ const statuspoliceinfo = ({navigation,route}) => {
     useEffect(async()=>{
         axios
         //use your ip address type in cmd ipconfig***
-        .post(`http:/192.168.1.36:3000/statuspoliceinfo`,{
+        .post(`http:/192.168.1.113:3000/statuspoliceinfo`,{
             iduser:id
         })
         .then((res) => {
             setInfo(res.data);
+            console.log(res.data)
         })
         .catch((err) => {
           console.log(err);
         });
     }, [])
-
+console.log(info)
 
     const success = () =>{
         axios
         //use your ip address type in cmd ipconfig***
-        .post(`http:/192.168.1.36:3000/police/success`,{id:id})
+        .post(`http:/192.168.1.113:3000/police/success`,{id:id})
         .then(() => {
     
         })
@@ -60,7 +61,10 @@ const statuspoliceinfo = ({navigation,route}) => {
         :<Text>loading....</Text>
         }
         <View>
-        <Button onPress={()=>{navigation.navigate("statuspolice"),success()}} title="เปลี่ยนสถานะเป็นเสร็จสิ้นแล้ว" style={{color:"black"}} ></Button>
+          <View style={{paddingBottom: 15}}/>
+        <TouchableOpacity onPress={()=>{navigation.navigate("statuspolice"),success()}} style={{backgroundColor: '#9ae66d', height: 40, alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{color: 'white', fontSize: 20}}>เปลี่ยนสถานะเสร็จสิ้น</Text>
+        </TouchableOpacity>
         </View>
      
     </ScrollView>

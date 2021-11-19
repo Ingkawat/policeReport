@@ -28,7 +28,7 @@ const statuspolice = ({ navigation }) => {
   const [report, setreport] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = React.useCallback(async() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
@@ -36,7 +36,7 @@ const statuspolice = ({ navigation }) => {
   useEffect(() => {
     axios
       //use your ip address type in cmd ipconfig***
-      .post(`http:/192.168.1.36:3000/statuspolice`,{
+      .post(`http:/192.168.1.113:3000/statuspolice`,{
           iduser:state.username
       })
       .then((res) => {
@@ -57,74 +57,97 @@ const statuspolice = ({ navigation }) => {
       >
         {report.map((prop, key) => {
           return (
+<View>
+	<TouchableOpacity key={key} onPress={() => {navigation.navigate("statuspoliceinfo", {id: prop.id,});}}>
+		
+      <View style={{flexDirection: 'row', flexWrap:'wrap', backgroundColor: '#1597e5', borderBottomWidth: 1, borderBottomColor: '#E4DFD9'}}>
+        <View style={{flexDirection: 'column', width: '20%'}}>
+          <View style={{padding: 10}}>
+          <Image style={{height: 70, width: 70, borderRadius: 25}} source={{uri:"http://192.168.1.113:3000/"+prop.imagetofind}}/>
+          </View>
+       
+        </View>
+        <View style={{flexDirection: 'column', width: '50%', justifyContent: 'center'}}>
+        <Text>{prop.dataofpolice}</Text>
+        </View>
+        <View style={{flexDirection: 'column', width: '30%', justifyContent: 'center'}}>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            <AntDesign name="calendar" size={15} color="black" />
+            <Text style={{ fontSize: 10 }}> {prop.date}</Text>
+         </View>
+        <Text>{prop.status}</Text>
+        </View>
+      </View>
+
+	</TouchableOpacity>
+</View>
+        //     <View>
               
-            <View>
-              
-              <TouchableOpacity
-                key={key}
-                onPress={() => {
-                  navigation.navigate("statuspoliceinfo", {
-                    id: prop.id,
-                  });
-                }}
-              >
+        //       <TouchableOpacity
+        //         key={key}
+        //         onPress={() => {
+        //           navigation.navigate("statuspoliceinfo", {
+        //             id: prop.id,
+        //           });
+        //         }}
+        //       >
                   
-                <View
-                  style={[
-                    styles.container,
-                    {
-                      backgroundColor: "#1597e5",
-                      height: 100,
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#E4DFD9",
-                    },
-                  ]}
-                >
-                  <View
-                    style={{
-                      width: "15%",
-                      justifyContent: "center",
-                      height: 100,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Entypo name="text-document" size={50} color="black" />
-                  </View>
-                  <View
-                    style={{
-                      width: "45%",
-                      justifyContent: "center",
-                      height: 100,
-                    }}
-                  >
-                     <Image style={{height: 150, width: 150, borderRadius: 25}} source={{uri:"http://192.168.1.36:3000/"+prop.imagetofind}}/>
-                    <Text>{prop.dataofpolice}</Text>
-                  </View>
+        //         <View
+        //           style={[
+        //             styles.container,
+        //             {
+        //               backgroundColor: "#1597e5",
+        //               height: 100,
+        //               borderBottomWidth: 1,
+        //               borderBottomColor: "#E4DFD9",
+        //             },
+        //           ]}
+        //         >
+        //           <View
+        //             style={{
+        //               width: "15%",
+        //               justifyContent: "center",
+        //               height: 100,
+        //               alignItems: "center",
+        //             }}
+        //           >
+        //             <Image style={{height: 150, width: 150, borderRadius: 25}} source={{uri:"http://192.168.1.113:3000/"+prop.imagetofind}}/>
+        //           </View>
+        //           <View
+        //             style={{
+        //               width: "45%",
+        //               justifyContent: "center",
+        //               height: 100,
+        //             }}
+        //           >
+                     
+        //             <Text>{prop.dataofpolice}</Text>
+        //           </View>
               
-                  <View
-                    style={{
-                      width: "35%",
-                      justifyContent: "center",
-                      height: 100,
-                    }}
-                  >
-                    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                      <AntDesign name="calendar" size={20} color="black" />
-                      <Text style={{ fontSize: 12 }}> {prop.date}</Text>
-                    </View>
-                    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                      <Text>{prop.status}</Text>
+        //           <View
+        //             style={{
+        //               width: "35%",
+        //               justifyContent: "center",
+        //               height: 100,
+        //             }}
+        //           >
+        //             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        //               <AntDesign name="calendar" size={20} color="black" />
+        //               <Text style={{ fontSize: 12 }}> {prop.date}</Text>
+        //             </View>
+        //             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        //               <Text>{prop.status}</Text>
                   
-                    </View>
+        //             </View>
                    
-                  </View>
-                </View>
-              </TouchableOpacity> 
+        //           </View>
+        //         </View>
+        //       </TouchableOpacity> 
          
                     
               
  
-         </View>
+        //  </View>
          );
        })}
         

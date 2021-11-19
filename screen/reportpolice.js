@@ -64,7 +64,7 @@ const reportpolice = () => {
           data.append("des",des)
           data.append("date",datetext)
           axios
-          .put("http://192.168.1.36:3000/report/police",data)
+          .put("http://192.168.1.113:3000/report/police",data)
           .then( async (res) => {
             console.log(res.data)
           })
@@ -77,7 +77,7 @@ const reportpolice = () => {
 
     // const cancle = async () =>{
     //     axios
-    //     .post("http://192.168.1.36:3000/report/police/delete",{
+    //     .post("http://192.168.1.113:3000/report/police/delete",{
     //         id: state.username
     //     })
     //     .then( async (res) => {
@@ -92,15 +92,13 @@ const reportpolice = () => {
     return (
     <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
       <ScrollView>
-        <View style={{borderBottomWidth: 1, borderBottomColor: "#E4DFD9"}}>
-        <Button title="รูปผู้ต้องสงสัย" onPress={()=> addimage()}></Button>    
-        <TextInput placeholder="รายละเอียด" onChangeText={(value) => {setDes(value)}}></TextInput>
-
+        <View style={{margin: 25}}>
+        
+        <TextInput placeholder="รายละเอียด" onChangeText={(value) => {setDes(value)}} style={{borderWidth: 1, borderRadius: 15, borderColor: '#e1e1e1', height: 40, paddingLeft: 10}}/>
+        <View style={{paddingBottom: 10}}/>
+        <Button title="รูปผู้ต้องสงสัย" onPress={()=> addimage()}></Button>
+        <View style={{paddingBottom: 10}}/>
         <Button title = "ยืนยันการประกาศ" onPress={()=>setModalVisible(!modalVisible)}></Button>
-
-        
-        
-        
         </View>
       </ScrollView>
 
