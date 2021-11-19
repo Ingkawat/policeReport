@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Context as AuthContext } from '../context/AuthContext';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons, Entypo } from '@expo/vector-icons';
 
 import Login from "../screen/Login";
 import Register from "../screen/Register";
@@ -56,11 +56,11 @@ const stack = createNativeStackNavigator();
   function ReportStack(){
     return (
       <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
-        <stack.Screen name="Report" component={Report}/>
-        <stack.Screen name="ReportDocument" component={ReportDocument}/>
-        <stack.Screen name="MissingPeople" component={MissingPeople}/>
-        <stack.Screen name="Hint" component={Hint} />
-        <stack.Screen name="ReportHint" component={ReportHint}/>
+        <stack.Screen name="Report" component={Report} options={{title: 'แจ้งความ'}}/>
+        <stack.Screen name="ReportDocument" component={ReportDocument} options={{title: 'แจ้งเอกสารหาย'}}/>
+        <stack.Screen name="MissingPeople" component={MissingPeople} options={{title: 'แจ้งคนหาย'}}/>
+        <stack.Screen name="Hint" component={Hint} options={{title: 'แจ้งเบาะแส'}}/>
+        <stack.Screen name="ReportHint" component={ReportHint} options={{title: 'แจ้งเบาะแส'}}/>
       </stack.Navigator>
     )
   
@@ -88,7 +88,7 @@ const stack = createNativeStackNavigator();
     return(
       <stack.Navigator  screenOptions={{ headerStyle: { backgroundColor: "#4a148c" },headerTintColor: "white"}}>
 
-        <stack.Screen name="Peoplereport" component={Peoplereport}/>
+        <stack.Screen name="Peoplereport" component={Peoplereport} options={{title: 'ผู้ต้องสงสัย'}}/>
         <stack.Screen name="PeoplereportDetail" component={PeoplereportDetail}/>
       </stack.Navigator>
     )
@@ -119,9 +119,9 @@ const stack = createNativeStackNavigator();
              <Tab.Screen name = "peoplereport1" component={peoplereport1}
                   options={{
                     headerShown:false,
-                  tabBarLabel: 'Peoplereport',
+                  tabBarLabel: 'ผู้ต้องสงสัย',
                   tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="bell" color={color} size={size} />
+                    <Entypo name="flashlight" color={color} size={size} />
                   ),
                 }}/>
                   {state.role == "people" ?
