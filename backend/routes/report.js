@@ -53,7 +53,7 @@ router.post("/report/important/:idCard", async function (req, res, next) {
       );
       console.log(station_id[0][0])
       await conn.commit();
-      res.status(201).send();
+      res.send(station_id[0][0])
     } catch (err) {
       await conn.rollback();
       return res.status(400).json(err);
@@ -274,7 +274,25 @@ router.post("/report/important", async function (req, res, next) {
     try {
       conn.query('UPDATE report SET status=? WHERE report_id=?', [status,report_id])  
  
-      res.send("Succres to change status")
+      res.send({"repost_id":report_id})
+      await conn.commit();
+    } catch (err) {
+      await conn.rollback();
+      return res.status(400).json(err);
+    } finally {
+      console.log("finally");
+      conn.release();
+    }
+  });
+
+  router.get("/noti/user/:reportId", async function (req, res, next) {
+  
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+    try {
+      let result = await conn.query("SELECT * FROM report WHERE report_id=?", [req.params.reportId])
+      let noti = await conn.query("SELECT * FROM user WHERE id_card = ?", [result[0][0].userid_card])
+      res.send(noti[0][0].tokenNotification)
       await conn.commit();
     } catch (err) {
       await conn.rollback();
@@ -317,6 +335,22 @@ router.post("/report/important", async function (req, res, next) {
         let result = await conn.query("SELECT * FROM report  JOIN important_miss ON (report.report_id = important_miss.id) join user on (user.id_card = report.userid_card) WHERE report.report_id = ?",[report_id])
         res.send(result[0])
         console.log(result[0][0])
+        await conn.commit()
+    } catch (err) {
+      await conn.rollback();
+      return res.status(400).json(err);
+    } finally {
+      console.log("finally");
+      conn.release();
+    }
+  });
+
+  router.get("/notification/police/:stationId", async function (req, res, next) {
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+    try {
+        let result = await conn.query("SELECT * FROM user WHERE station=?",[req.params.stationId])
+        res.send(result[0][0])
         await conn.commit()
     } catch (err) {
       await conn.rollback();
