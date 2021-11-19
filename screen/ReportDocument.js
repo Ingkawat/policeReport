@@ -61,7 +61,7 @@ const addReport = (idcard, station, lostPaper,description) => {
 
   axios
     //use your ip address type in cmd ipconfig***
-    .post(`http://192.168.1.36:3000/report/important/${idcard}`, {
+    .post(`http://192.168.1.113:3000/report/important/${idcard}`, {
       report_type: "เอกสารหาย",
       station: station,
       date: datetext,
@@ -71,7 +71,7 @@ const addReport = (idcard, station, lostPaper,description) => {
     })
     .then(async (res) => {
       axios
-        .post("http://192.168.1.36:3000/report/important", {
+        .post("http://192.168.1.113:3000/report/important", {
           missing_type: lostPaper,
           description: description
         })
@@ -147,7 +147,7 @@ function ReportDocument() {
         </View>
         <View style={{paddingBottom: 10}}/>
         <Text>รายละเอียดเพิ่มเติม</Text>
-        <TextInput onChangeText={(value)=>setdescription(value)}></TextInput>
+        <TextInput onChangeText={(value)=>setdescription(value)} style={{borderWidth: 1, borderRadius: 15, borderColor: '#e1e1e1', height: 40, paddingLeft: 10}}></TextInput>
         <View style={{paddingBottom: 10}}/>
         <Button
           title="แจ้งความ"
