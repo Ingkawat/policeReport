@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, StyleSheet, Image} from "react-native";
+import { View, Text, StyleSheet, Image, Button} from "react-native";
 import axios from "axios";
 import { render } from "react-dom";
+import * as Linking from 'expo-linking';
 
 const StatusInfo = ({route}) => {
     const [info, setInfo] = useState(null)
@@ -10,7 +11,7 @@ const StatusInfo = ({route}) => {
     useEffect(async()=>{
         if(report_type == "เอกสารหาย"){
             if(police_id == null){
-        await axios.post(`http://192.168.1.113:3000/join_important/${report_id}`)
+        await axios.post(`http://192.168.1.37:3000/join_important/${report_id}`)
         .then((res) => {
             setInfo(res.data)
           })
@@ -18,7 +19,7 @@ const StatusInfo = ({route}) => {
             console.log(err);
           });
         }else if(police_id != null){
-            await axios.post(`http://192.168.1.113:3000/join_important/police/${report_id}`)
+            await axios.post(`http://192.168.1.37:3000/join_important/police/${report_id}`)
             .then((res) => {
                 setInfo(res.data)
                
@@ -29,7 +30,7 @@ const StatusInfo = ({route}) => {
         }
         }else if(report_type == "แจ้งคนหาย"){
             if(police_id == null){
-            await axios.post(`http://192.168.1.113:3000/join_missing/${report_id}`)
+            await axios.post(`http://192.168.1.37:3000/join_missing/${report_id}`)
             .then((res) => {
                 setInfo(res.data)
               })
@@ -38,7 +39,7 @@ const StatusInfo = ({route}) => {
               });
             }
             else if(police_id != null){
-                await axios.post(`http://192.168.1.113:3000/join_missing/police/${report_id}`)
+                await axios.post(`http://192.168.1.37:3000/join_missing/police/${report_id}`)
                 .then((res) => {
                     setInfo(res.data)
                   })
@@ -72,6 +73,7 @@ const StatusInfo = ({route}) => {
         <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.email}</Text>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>Status</Text>
         {info.status === 'success' ? <Text style={{fontWeight: 'bold', fontSize: 15, color: '#157347'}}>{info.status}</Text> : info.status === 'inprocess' ? <Text style={{fontWeight: 'bold', fontSize: 15, color: '#0d6efd'}}>{info.status}</Text> : <Text style={{fontWeight: 'bold', fontSize: 15, color: '#ffc823'}}>{info.status}</Text>}
+        {info.approve_file == null ? null : <Button title="File" onPress={()=>{Linking.openURL("http://192.168.1.37:3000/"+info.approve_file.slice(8))}}/>}
       </View>
         :
         <Text>Loading</Text>

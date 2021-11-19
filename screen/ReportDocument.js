@@ -20,7 +20,7 @@ import policeData from "../thiitangsthaaniitamrwcchnkhrbaal-.json";
 import { Picker } from "@react-native-picker/picker";
 import { Context as AuthContext } from "../context/AuthContext";
 
-const sendPushNotification = () => {
+const sendPushNotification = (token) => {
   let response = fetch("https://exp.host/--/api/v2/push/send", {
     method: "POST",
     headers: {
@@ -28,7 +28,7 @@ const sendPushNotification = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      to: "ExponentPushToken[EXdESYPsl2mVuDVHVMaMtS]",
+      to: token,
       sound: "default",
       title: "NEW REPORT IS COMING",
       body: "REPORT!!!!!!",
@@ -61,22 +61,29 @@ const addReport = (idcard, station, lostPaper,description) => {
 
   axios
     //use your ip address type in cmd ipconfig***
-    .post(`http://192.168.1.113:3000/report/important/${idcard}`, {
+    .post(`http://192.168.1.37:3000/report/important/${idcard}`, {
       report_type: "เอกสารหาย",
       station: station,
       date: datetext,
-
-
-
     })
     .then(async (res) => {
+      
       axios
-        .post("http://192.168.1.113:3000/report/important", {
+        .post("http://192.168.1.37:3000/report/important", {
           missing_type: lostPaper,
           description: description
         })
-        .then(async (res) => {
-          sendPushNotification();
+        .then(async () => {
+          
+          axios.get(`http://192.168.1.37:3000/notification/police/${res.data.id}`)
+            .then(async (res) => {
+              if(res.data.tokenNotification == null){
+                console.log("Token not found")
+              }else{
+                console.log(res.data.tokenNotification)
+                sendPushNotification(res.data.tokenNotification)
+              }
+            }).catch((err)=>{console.log(err)})
         })
         .catch((err) => {
           console.log(err);
@@ -87,7 +94,7 @@ const addReport = (idcard, station, lostPaper,description) => {
     });
 };
 
-function ReportDocument() {
+function ReportDocument({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const { state } = useContext(AuthContext);
   const [selectStation, setselectStation] = useState();
@@ -109,6 +116,9 @@ function ReportDocument() {
     "ใบกรมธรรม์",
     "ใบคู่มือการจดทะเบียนรถ",
   ];
+
+  
+
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View style={{ margin: 20 }}>
@@ -174,7 +184,7 @@ function ReportDocument() {
               <View style={styles.row}>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => {addReport(state.username, selectStation, selectlostPaper,description),setModalVisible(!modalVisible)}}
+                  onPress={() => {addReport(state.username, selectStation, selectlostPaper,description),setModalVisible(!modalVisible),navigation.navigate("Report")}}
                 >
                   <Text style={styles.textStyle}>ยอมรับ</Text>
                 </Pressable>

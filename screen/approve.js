@@ -8,6 +8,21 @@ import { Platform } from "expo-modules-core";
 
 
 const Approve = ({route, navigation}) => {
+  const sendPushNotification = (token) => {
+    let response = fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: token,
+        sound: "default",
+        title: "REPORT APPROVE",
+        body: "report approve already",
+      }),
+    });
+  };
     const {report_id, user_id, police_id, report_type} = route.params
     const [report,setReport] = useState(null)
 
@@ -29,12 +44,12 @@ const makecall = (phone) =>{
     
       if(report_type == "เอกสารหาย"){
       await axios
-          .post(`http://192.168.1.36:3000/report/pending/${report_id}/${police_id}`)
+          .post(`http://192.168.1.37:3000/report/pending/${report_id}/${police_id}`)
           .then( async(res) => {
  
             console.log(res.data);
              await axios
-            .post(`http://192.168.1.36:3000/report/missingpaper/detail`,{
+            .post(`http://192.168.1.37:3000/report/missingpaper/detail`,{
               report_id:report_id 
             })
             .then(async(res) => {
@@ -53,10 +68,10 @@ const makecall = (phone) =>{
         }
         else if (report_type == "แจ้งคนหาย"){
           await axios
-          .post(`http://192.168.1.36:3000/report/pending/${report_id}/${police_id}`)
+          .post(`http://192.168.1.37:3000/report/pending/${report_id}/${police_id}`)
           .then(async (res) => {
             await axios
-            .put(`http://192.168.1.36:3000/report/missingpeople/detail`,{
+            .put(`http://192.168.1.37:3000/report/missingpeople/detail`,{
               report_id:report_id 
             })
             .then(async(res) => {
@@ -74,11 +89,18 @@ const makecall = (phone) =>{
 
     const Approve = async (report_id) =>{
       await axios
-      .post(`http://192.168.1.36:3000/report/pending/status/success`,{
+      .post(`http://192.168.1.37:3000/report/pending/status/success`,{
         report_id:report_id
       })
-      .then((res) => {
-        console.log(res.data);
+      .then(async(res) => {
+        
+        await axios
+        .get(`http://192.168.1.37:3000/noti/user/${res.data.repost_id}`)
+        .then((res)=>{
+          sendPushNotification(res.data)
+        })
+        .catch((eer)=>console.log(eer))
+        
       })
       .catch((err) => {
         console.log(err);
@@ -97,7 +119,7 @@ const makecall = (phone) =>{
         data.append("id", report_id)
         data.append("image", doc)
         await axios
-          .post("http://192.168.1.36:3000/users", data)
+          .post("http://192.168.1.37:3000/users", data)
           .then((res) => {
             console.log(res.data);
           })
@@ -120,7 +142,7 @@ const makecall = (phone) =>{
 
 
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้แจ้ง</Text>
-          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Image source={{uri:"http://192.168.1.37:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].f_name} {report[0].l_name}</Text>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{user_id}</Text>
@@ -144,7 +166,7 @@ const makecall = (phone) =>{
         <View style={{alignItems: 'center' , paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5}}>แจ้งคนหาย</Text>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้หาย</Text>
-          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].image_people}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Image source={{uri:"http://192.168.1.37:3000/"+report[0].image_people}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].missing_name}</Text>
         </View>
         <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
@@ -154,7 +176,7 @@ const makecall = (phone) =>{
         <View>
           <View style={{alignItems: 'center' , paddingBottom: 20}}>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ข้อมูลผู้แจ้ง</Text>
-          <Image source={{uri:"http://192.168.1.36:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
+          <Image source={{uri:"http://192.168.1.37:3000/"+report[0].imageuser}} style={{ width: 100, height: 100, borderRadius: 25 }}></Image>
           <Text style={{fontWeight: 'bold', fontSize: 15}}>{report[0].f_name} {report[0].l_name}</Text>
         </View>
           <Text style={{fontWeight: 'bold', fontSize: 17.5, color: '#bccdd6'}}>ID Card</Text>
