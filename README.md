@@ -20,3 +20,4 @@
 - yarn add react-native-screens
 - yarn add express
 - yarn add mysql2
+- yarn add expo-linking
