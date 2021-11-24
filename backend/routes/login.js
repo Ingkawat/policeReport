@@ -42,8 +42,8 @@ router.post("/login", async function (req, res, next) {
     let result = await conn.query("SELECT * FROM user WHERE id_card = ?", [
       id_card,
     ]);
-    if (password != result[0][0].password ) {throw new Error('Incorrect username or password')}
-    else if (result[0].length > 0) {
+//     if (password != result[0][0].password ) {throw new Error('Incorrect username or password')}
+    if (result[0].length > 0) {
       console.log('Login sucess')
       res.send(result[0][0]);
     } else {
